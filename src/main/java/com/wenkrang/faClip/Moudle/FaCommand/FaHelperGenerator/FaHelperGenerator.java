@@ -2,6 +2,9 @@ package com.wenkrang.faClip.Moudle.FaCommand.FaHelperGenerator;
 
 import com.wenkrang.faClip.Moudle.FaCommand.FaCmd;
 import com.wenkrang.faClip.Moudle.FaCommand.FaCmdInstance;
+import com.wenkrang.faClip.Moudle.FaCommand.FaCmdInterpreter.FaCmdContext;
+import com.wenkrang.faClip.Moudle.FaCommand.FaParam.FaParam;
+import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,6 +23,23 @@ public class FaHelperGenerator {
     }
 
     /**
+     * 生成命令用法
+     * @param node 节点
+     * @return 命令用法
+     */
+    public String generateUsage(String node) {
+        FaCmd faCmd = getFaCmdInstance().getFaCmds().stream().filter(i -> i.getNode().equals(node)).findFirst().orElseThrow();
+
+        FaParam faParam = new FaParam();
+
+        Object[] usage = faParam.getUsage(faCmd, new FaCmdContext(Bukkit.getConsoleSender(), new String[0]), false);
+        List<String> convert = faParam.convert(usage);
+
+        return String.join(" ", node.split("\\.")) + " " + String.join(" ", convert);
+    }
+
+
+    /**
      * 计算命令长度
      * @param names 命令列表
      * @return 命令长度
@@ -35,7 +55,7 @@ public class FaHelperGenerator {
      * 生成帮助信息
      * @param node 节点
      */
-    public @Nullable String generate(String node) {
+    public @Nullable List<String> generate(String node) {
         // 获取节点下的命令（包括该节点的命令）
         List<FaCmd> list = faCmdInstance.getFaCmds().stream()
                 .filter(i -> i.getNode().startsWith(node))
@@ -67,7 +87,11 @@ public class FaHelperGenerator {
                     .toList();
 
             // 子命令为空
-            if (subCmds.isEmpty()) return String.join("\n", msg);
+            if (subCmds.isEmpty()) {
+                msg.add("");
+                msg.add(generateUsage(node));
+                return msg;
+            };
 
             // 格式化
             String format = "%-" + calculateSize(subCmds) + "s";
@@ -79,7 +103,7 @@ public class FaHelperGenerator {
                         + (cmd.getHelp() == null ? "" : cmd.getHelp()));
             }
 
-            return String.join("\n", msg);
+            return msg;
         }
 
         return null;

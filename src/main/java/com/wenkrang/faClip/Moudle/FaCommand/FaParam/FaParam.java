@@ -66,9 +66,11 @@ public class FaParam {
      * 获取命令的用法
      *
      * @param cmd 命令
+     * @param faCmdContext 命令上下文
+     * @param detail 是否显示详细用法
      * @return 命令的用法
      */
-    public Object[] getUsage(@NotNull FaCmd cmd, @NotNull FaCmdContext faCmdContext) {
+    public Object[] getUsage(@NotNull FaCmd cmd, @NotNull FaCmdContext faCmdContext,boolean detail) {
         // 切割命令节点
         List<String> node = CmdNodeHelper.separateNode(cmd.getNode());
 
@@ -87,7 +89,7 @@ public class FaParam {
                                 }
                             } else if (i.getAnnotation(ParamDes.class) != null) {
                                 return i.getAnnotation(ParamDes.class).value();
-                            } else if (i.getAnnotation(ParamArrayDes.class) != null) {
+                            } else if (i.getAnnotation(ParamArrayDes.class) != null && detail) {
                                 return i.getAnnotation(ParamArrayDes.class).value();
                             } else {
                                 // 准备结果列表
@@ -102,7 +104,7 @@ public class FaParam {
                                 // 历遍处理器
                                 for (SimpleParam j : handlers) {
                                     // 检查处理器是否是提供描述的
-                                    if (j instanceof DesProvider value) {
+                                    if (j instanceof DesProvider value && detail) {
                                         @NotNull String[] des = value.getDes(faCmdContext);
                                         result.addAll(Arrays.asList(des));
                                     } else {
@@ -124,4 +126,22 @@ public class FaParam {
         // 把节点和参数名称拼接起来
         return Stream.concat(node.stream(), paramNames.stream()).toArray(Object[]::new);
     }
+
+
+    public List<String> convert(Object[] objects) {
+        ArrayList<String> result = new ArrayList<>();
+
+        for (Object object : objects) {
+            if (object instanceof String str) {
+                result.add(str);
+            } else if (object instanceof String[] strs) {
+                result.addAll(List.of(strs));
+            } else if (object instanceof ArrayList<?> strs) {
+                result.addAll(strs.stream().map(String::valueOf).toList());
+            }
+        }
+
+        return result;
+    }
+
 }

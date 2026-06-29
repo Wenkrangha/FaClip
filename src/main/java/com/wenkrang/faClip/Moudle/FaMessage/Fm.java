@@ -76,7 +76,7 @@ public class Fm {
      * @param msg 要输出的信息内容
      */
     public static void info(CommandSender sender, String msg) {
-        sender.sendMessage(prefix + " " + Scc.BLUE + "[*] " + Scc.RESET + msg);
+        sender.sendMessage(Scc.BLUE + "[*] " + Scc.RESET + msg);
     }
 
     /**

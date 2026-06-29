@@ -1,6 +1,10 @@
 package com.wenkrang.faClip;
 
+import com.wenkrang.faClip.Moudle.FaCommand.Annotation.Cmd;
+import com.wenkrang.faClip.Moudle.FaCommand.Annotation.Help;
+import com.wenkrang.faClip.Moudle.FaCommand.Annotation.OnlyForHelp;
 import com.wenkrang.faClip.Moudle.FaCommand.FaCmdInstance;
+import com.wenkrang.faClip.Moudle.FaCommand.FaCmdInterpreter.FaCmdContext;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
@@ -34,4 +38,18 @@ public final class FaClip extends JavaPlugin {
         faCmdInstance.close();
     }
 
+    @Cmd("testmain")
+    @OnlyForHelp(true)
+    @Help("测试")
+    public static void test() {}
+
+    @Cmd("testmain.A")
+    @Help("测试A")
+    public static void A(FaCmdContext faCmdContext){
+        faCmdContext.sender().sendMessage("a");
+    }
+
+    @Cmd("testmain.B")
+    @Help("测试B")
+    public static void B(){}
 }

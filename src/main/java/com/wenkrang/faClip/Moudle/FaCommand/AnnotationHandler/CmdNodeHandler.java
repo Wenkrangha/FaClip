@@ -32,6 +32,7 @@ public class CmdNodeHandler implements FaAnnotationHandler {
             //进行泛命令加载
             command.setNode(node);
             command.setMethod(method);
+            command.setName(node.split("\\.")[node.split("\\.").length - 1]);
         }else {
             Fm.waring(t("FaCommand.Error.Interpreter.CantUnderstand"));
         }

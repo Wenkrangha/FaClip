@@ -164,14 +164,16 @@ public class FaCmdInterpreter {
                             return;
                         }
                         // 权限检查
-                        if (!faCmd.get().getPermission().isEmpty() && !sender.hasPermission(faCmd.get().getPermission())) {
+                        if (faCmd.get().getPermission() != null && !sender.hasPermission(faCmd.get().getPermission())) {
                             Fm.log(sender, t("FaCommand.Error.Interpreter.NoPermission"));
                             return;
                         }
                         // 输出帮助
                         if (faCmd.get().isOnlyForHelp()) {
                             FaHelperGenerator faHelperGenerator = new FaHelperGenerator(faCmdInstance);
-                            Fm.info(sender, faHelperGenerator.generate(faCmd.get().getNode()));
+                            for (String help : faHelperGenerator.generate(faCmd.get().getNode())) {
+                                Fm.log(sender, help);
+                            }
                             return;
                         }
 
@@ -192,6 +194,9 @@ public class FaCmdInterpreter {
                                 }
                             }
                         }.runTask(faCmdInstance.getPlugin());
+                    } else {
+                        // 命令不存在
+                        Fm.log(sender, t("FaCommand.Error.Interpreter.NotFound"));
                     }
 
                 }catch (Exception e) {
@@ -226,28 +231,16 @@ public class FaCmdInterpreter {
         // 然后获取所有命令的用法
         FaParam faParam = new FaParam();
 
-        List<Object> usages = faCmds.stream()
+        Object[] usages = faCmds.stream()
                 .filter(i -> !(i.isRequireOP() && !sender.isOp())) // 跳过权限检查失败的
                 .filter(i -> !(i.getPermission() != null && !sender.hasPermission(i.getPermission()))) //TODO:处理这个玩意，啥东西啊
-                .map(i -> faParam.getUsage(i, new FaCmdContext(sender, args)))
+                .map(i -> faParam.getUsage(i, new FaCmdContext(sender, args), true))
                 .filter(i -> i.length >= cArgs.size())
                 .map(i -> i[cArgs.size() - 1])
                 .filter(Objects::nonNull)
-                .toList();
+                .toArray();
 
-        ArrayList<String> result = new ArrayList<>();
-
-        for (Object object : usages) {
-            if (object instanceof String str) {
-                result.add(str);
-            } else if (object instanceof String[] strs) {
-                result.addAll(List.of(strs));
-            } else if (object instanceof ArrayList<?> strs) {
-                result.addAll(strs.stream().map(String::valueOf).toList());
-            }
-        }
-
-        return result;
+        return faParam.convert(usages);
     }
 
     public FaCmdInstance getFaCmdInstance() {
