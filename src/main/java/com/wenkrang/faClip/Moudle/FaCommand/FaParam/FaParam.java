@@ -1,4 +1,4 @@
-package com.wenkrang.faClip.Moudle.FaParam;
+package com.wenkrang.faClip.Moudle.FaCommand.FaParam;
 
 import com.wenkrang.faClip.Moudle.FaCommand.Annotation.CustomDes;
 import com.wenkrang.faClip.Moudle.FaCommand.Annotation.DesProvider;
@@ -7,7 +7,7 @@ import com.wenkrang.faClip.Moudle.FaCommand.Annotation.ParamDes;
 import com.wenkrang.faClip.Moudle.FaCommand.FaCmd;
 import com.wenkrang.faClip.Moudle.FaCommand.FaCmdInterpreter.FaCmdContext;
 import com.wenkrang.faClip.Moudle.FaCommand.Helper.CmdNodeHelper;
-import com.wenkrang.faClip.Moudle.FaParam.JavaParam.*;
+import com.wenkrang.faClip.Moudle.FaCommand.FaParam.JavaParam.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

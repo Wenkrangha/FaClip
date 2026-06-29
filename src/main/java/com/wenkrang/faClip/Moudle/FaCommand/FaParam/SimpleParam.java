@@ -1,4 +1,4 @@
-package com.wenkrang.faClip.Moudle.FaParam;
+package com.wenkrang.faClip.Moudle.FaCommand.FaParam;
 
 import org.jetbrains.annotations.Nullable;
 

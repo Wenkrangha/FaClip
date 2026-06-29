@@ -1,8 +1,8 @@
-package com.wenkrang.faClip.Moudle.FaParam.JavaParam;
+package com.wenkrang.faClip.Moudle.FaCommand.FaParam.JavaParam;
 
 import com.wenkrang.faClip.Moudle.FaCommand.Annotation.DesProvider;
 import com.wenkrang.faClip.Moudle.FaCommand.FaCmdInterpreter.FaCmdContext;
-import com.wenkrang.faClip.Moudle.FaParam.SimpleParam;
+import com.wenkrang.faClip.Moudle.FaCommand.FaParam.SimpleParam;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
