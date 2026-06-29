@@ -8,9 +8,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.jar.JarFile;
-import java.util.logging.Logger;
 
 import static com.wenkrang.faClip.Moudle.FaMessage.Helper.i18nHelper.ft;
+import static com.wenkrang.faClip.Moudle.FaMessage.Fm.waring;
 
 /**
  * 类操作帮助类
@@ -71,7 +71,7 @@ public class ClassHelper {
                         try {
                             return Class.forName(i);
                         } catch (ClassNotFoundException e) {
-                            Logger.getGlobal().warning(ft("FaCommand.Error.ClassHelper.CannotGetClass", i));
+                            waring(ft("FaCommand.Error.ClassHelper.CannotGetClass", i));
                         }
                         return null;
                     })
@@ -81,7 +81,7 @@ public class ClassHelper {
 
 
         }catch (IOException e) {
-            Logger.getGlobal().warning(ft("FaCommand.Error.ClassHelper.CannotOpenJarFile", file.getPath()));
+            waring(ft("FaCommand.Error.ClassHelper.CannotOpenJarFile", file.getPath()));
         }
 
         return classes;
@@ -123,7 +123,7 @@ public class ClassHelper {
                 // 导入类
                 classes.add(Class.forName(className));
             } catch (ClassNotFoundException e) {
-                Logger.getGlobal().warning(ft("FaCommand.Error.ClassHelper.CannotGetClass", file.getPath()));
+                waring(ft("FaCommand.Error.ClassHelper.CannotGetClass", file.getPath()));
             }
 
         }

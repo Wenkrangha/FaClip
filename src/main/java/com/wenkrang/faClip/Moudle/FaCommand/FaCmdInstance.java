@@ -2,10 +2,7 @@ package com.wenkrang.faClip.Moudle.FaCommand;
 
 import com.wenkrang.faClip.Helper.ClassHelper;
 import com.wenkrang.faClip.Manager.CommandManager;
-import com.wenkrang.faClip.Moudle.FaCommand.AnnotationHandler.CmdHelpHandler;
-import com.wenkrang.faClip.Moudle.FaCommand.AnnotationHandler.CmdNodeHandler;
-import com.wenkrang.faClip.Moudle.FaCommand.AnnotationHandler.CmdPermissionHandler;
-import com.wenkrang.faClip.Moudle.FaCommand.AnnotationHandler.RequireOPHandler;
+import com.wenkrang.faClip.Moudle.FaCommand.AnnotationHandler.*;
 import com.wenkrang.faClip.Moudle.FaCommand.FaCmdInterpreter.FaCmdInterpreter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -78,6 +75,7 @@ public class FaCmdInstance {
         faCmdInstance.faCmdInterpreter.addAnnotationHandlers(new CmdPermissionHandler());
         faCmdInstance.faCmdInterpreter.addAnnotationHandlers(new RequireOPHandler());
         faCmdInstance.faCmdInterpreter.addAnnotationHandlers(new CmdHelpHandler());
+        faCmdInstance.faCmdInterpreter.addAnnotationHandlers(new CmdOnlyForHelpHandler());
 
         return faCmdInstance;
     }

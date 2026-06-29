@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
-import static org.bukkit.Bukkit.getLogger;
+import static com.wenkrang.faClip.Moudle.FaMessage.Fm.waring;
 
 /**
  * 文件操作帮助类
@@ -18,7 +18,7 @@ public class FileHelper {
      */
     public static void mkdirsWithLog(@NotNull File target) {
         if (!target.mkdirs()) {
-            getLogger().warning("the temp directory can't be created");
+            waring("the temp directory can't be created");
         }
     }
 }

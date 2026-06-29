@@ -4,7 +4,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
+
+import static com.wenkrang.faClip.Moudle.FaMessage.Fm.waring;
 
 /**
  * 国际化帮助类，用于处理多语言文本的获取和日志记录
@@ -81,25 +82,25 @@ public class i18nHelper {
      * 记录警告日志（私有实例方法）
      * @param Message 资源键名
      */
-    public void pw(@NotNull String Message) {Logger.getGlobal().warning(pt(Message));}
+    public void pw(@NotNull String Message) {waring(pt(Message));}
     
     /**
      * 记录警告日志（公共静态方法）
      * @param Message 资源键名
      */
-    public static void w(@NotNull String Message) {Logger.getGlobal().warning(new i18nHelper().pt(Message));}
+    public static void w(@NotNull String Message) {waring(new i18nHelper().pt(Message));}
 
     /**
      * 记录格式化警告日志（私有实例方法）
      * @param Message 资源键名
      * @param args 格式化参数
      */
-    public void pfw(@NotNull String Message, Object... args) {Logger.getGlobal().warning(pft(Message, args));}
+    public void pfw(@NotNull String Message, Object... args) {waring(pft(Message, args));}
     
     /**
      * 记录格式化警告日志（公共静态方法）
      * @param Message 资源键名
      * @param args 格式化参数
      */
-    public static void fw(@NotNull String Message, Object... args) {Logger.getGlobal().warning(new i18nHelper().pft(Message, args));}
+    public static void fw(@NotNull String Message, Object... args) {waring(new i18nHelper().pft(Message, args));}
 }

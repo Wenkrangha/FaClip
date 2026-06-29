@@ -3,9 +3,11 @@ package com.wenkrang.faClip.Moudle.FaCommand.FaCmdInterpreter;
 import com.wenkrang.faClip.Moudle.FaCommand.AnnotationHandler.FaAnnotationHandler;
 import com.wenkrang.faClip.Moudle.FaCommand.FaCmd;
 import com.wenkrang.faClip.Moudle.FaCommand.FaCmdInstance;
+import com.wenkrang.faClip.Moudle.FaCommand.FaHelperGenerator.FaHelperGenerator;
 import com.wenkrang.faClip.Moudle.FaCommand.Helper.CmdHandleHelper;
 import com.wenkrang.faClip.Moudle.FaCommand.Helper.CmdNodeHelper;
 import com.wenkrang.faClip.Moudle.FaCommand.FaParam.FaParam;
+import com.wenkrang.faClip.Moudle.FaMessage.Fm;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -14,7 +16,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Method;
 import java.util.*;
-import java.util.logging.Logger;
 import java.util.stream.IntStream;
 
 import static com.wenkrang.faClip.Moudle.FaMessage.Helper.i18nHelper.fw;
@@ -146,20 +147,11 @@ public class FaCmdInterpreter {
                     // 创建命令节点解析器
                     FaGuesser faGuesser = new FaGuesser(faCmdInstance);
 
-                    if (params.getLast().equalsIgnoreCase("help")){
-                        params.removeLast();
-                        List<FaCmd> faCmds = faGuesser.guessFaCmd(params, FaGuesser.guessMode.fuzzy);
-
-
-
-                        return;
-                    }
-
                     List<FaCmd> faCmds = faGuesser.guessFaCmd(params, FaGuesser.guessMode.full);
 
                     // 命令冲突
                     if (faCmds.size() > 1) {
-                        fw("FaCommand.Error.Interpreter.Conflict", faCmds.toString());
+                        Fm.error(t("FaCommand.Error.Interpreter.Conflict") + " " + faCmds.toString());
                     }
 
                     Optional<FaCmd> faCmd = faCmds.stream().findFirst();
@@ -168,14 +160,21 @@ public class FaCmdInterpreter {
                     if (faCmd.isPresent()) {
                         // 权限检查
                         if (faCmd.get().isRequireOP() && !sender.isOp()) {
-                            sender.sendMessage(t("FaCommand.Error.Interpreter.RequireOP"));
+                            Fm.log(sender, t("FaCommand.Error.Interpreter.RequireOP"));
                             return;
                         }
                         // 权限检查
                         if (!faCmd.get().getPermission().isEmpty() && !sender.hasPermission(faCmd.get().getPermission())) {
-                            sender.sendMessage(t("FaCommand.Error.Interpreter.NoPermission"));
+                            Fm.log(sender, t("FaCommand.Error.Interpreter.NoPermission"));
                             return;
                         }
+                        // 输出帮助
+                        if (faCmd.get().isOnlyForHelp()) {
+                            FaHelperGenerator faHelperGenerator = new FaHelperGenerator(faCmdInstance);
+                            Fm.info(sender, faHelperGenerator.generate(faCmd.get().getNode()));
+                            return;
+                        }
+
 
                         Method method = faCmd.get().getMethod();
 
@@ -189,14 +188,14 @@ public class FaCmdInterpreter {
                                     // 执行方法
                                     method.invoke(faCmd.get(), objects);
                                 } catch (Exception e) {
-                                    Logger.getGlobal().warning(e.getMessage());
+                                    Fm.error(e.getMessage());
                                 }
                             }
                         }.runTask(faCmdInstance.getPlugin());
                     }
 
                 }catch (Exception e) {
-                    Logger.getGlobal().warning(e.getMessage());
+                    Fm.error(e.getMessage());
                 }
             }
         }.runTaskAsynchronously(faCmdInstance.getPlugin());

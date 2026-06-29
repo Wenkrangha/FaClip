@@ -3,6 +3,7 @@ package com.wenkrang.faClip.Moudle.FaMessage;
 import com.wenkrang.faClip.Moudle.FaMessage.Helper.Scc;
 import com.wenkrang.faClip.Moudle.FaMessage.Helper.i18nHelper;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class Fm {
@@ -40,6 +41,16 @@ public class Fm {
     }
 
     /**
+     * 向命令发送者发送普通日志消息（自动判断是玩家还是控制台）
+     *
+     * @param sender 接收消息的命令发送者
+     * @param msg 要输出的消息内容
+     */
+    public static void log(CommandSender sender, String msg) {
+        sender.sendMessage(prefix + " " + msg);
+    }
+
+    /**
      * 向控制台发送信息状态消息（带蓝色[*]标记）
      *
      * @param msg 要输出的信息内容
@@ -56,6 +67,16 @@ public class Fm {
      */
     public static void info(Player player, String msg) {
         player.sendMessage(Scc.BLUE + "[*] " + Scc.RESET + msg);
+    }
+
+    /**
+     * 向命令发送者发送信息状态消息（带蓝色[*]标记）
+     *
+     * @param sender 接收消息的命令发送者
+     * @param msg 要输出的信息内容
+     */
+    public static void info(CommandSender sender, String msg) {
+        sender.sendMessage(prefix + " " + Scc.BLUE + "[*] " + Scc.RESET + msg);
     }
 
     /**
@@ -78,6 +99,16 @@ public class Fm {
     }
 
     /**
+     * 向命令发送者发送错误状态消息（带红色[-]标记）
+     *
+     * @param sender 接收消息的命令发送者
+     * @param msg 要输出的错误内容
+     */
+    public static void error(CommandSender sender, String msg) {
+        sender.sendMessage(prefix + " " + Scc.RED + "[-] " + Scc.RESET + msg);
+    }
+
+    /**
      * 向控制台发送警告状态消息（黄色[!]标记）
      *
      * @param msg 要输出的警告内容
@@ -94,6 +125,16 @@ public class Fm {
      */
     public static void waring(Player player, String msg) {
         player.sendMessage(Scc.YELLOW + "[!] " + Scc.RESET + msg);
+    }
+
+    /**
+     * 向命令发送者发送警告状态消息（带黄色[!]标记）
+     *
+     * @param sender 接收消息的命令发送者
+     * @param msg 要输出的警告内容
+     */
+    public static void waring(CommandSender sender, String msg) {
+        sender.sendMessage(prefix + " " + Scc.YELLOW + "[!] " + Scc.RESET + msg);
     }
 
     /**
@@ -116,6 +157,16 @@ public class Fm {
     }
 
     /**
+     * 向命令发送者发送调试状态消息（带灰色[/]标记）
+     *
+     * @param sender 接收消息的命令发送者
+     * @param msg 要输出的调试内容
+     */
+    public static void debug(CommandSender sender, String msg) {
+        sender.sendMessage(prefix + " " + Scc.GREY + "[/] " + Scc.RESET + msg);
+    }
+
+    /**
      * 向控制台发送详细格式化的多行消息
      * 消息包含标题、副标题、主体内容和次要内容，使用分隔线框起来
      *
@@ -128,5 +179,20 @@ public class Fm {
         Bukkit.getConsoleSender().sendMessage("-----------------------------------------------------------------\n\n"
                 + Scc.BOLD + title + Scc.RESET + "\n" + Scc.GREY + subtitle + Scc.RESET + "\n"
         + body + "\n" + subBody + "\n\n" + "-----------------------------------------------------------------");
+    }
+
+    /**
+     * 向玩家发送详细格式化的多行消息
+     * 消息包含标题、副标题、主体内容和次要内容，使用分隔线框起来
+     *
+     * @param title 主标题（加粗显示）
+     * @param subtitle 副标题（灰色显示）
+     * @param body 主体内容
+     * @param subBody 次要内容
+     */
+    public static void detail(Player player, String title, String subtitle, String body, String subBody) {
+        player.sendMessage("-----------------------------------------------------------------\n\n"
+                + Scc.BOLD + title + Scc.RESET + "\n" + Scc.GREY + subtitle + Scc.RESET + "\n"
+                + body + "\n" + subBody + "\n\n" + "-----------------------------------------------------------------");
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.wenkrang.faClip.Moudle.FaMessage.Helper.i18nHelper.t;
-import static org.bukkit.Bukkit.getLogger;
+import static com.wenkrang.faClip.Moudle.FaMessage.Fm.waring;
 
 /**
  * CommandManager 类用于管理 Bukkit 插件中的命令注册、分发和补全功能。
@@ -36,7 +36,7 @@ public class CommandManager {
             bukkitCommandMap.setAccessible(true);
             commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            getLogger().warning(t("FaCommand.Error.CommandMap.NotFound"));
+            waring(t("FaCommand.Error.CommandMap.NotFound"));
         }
     }
 

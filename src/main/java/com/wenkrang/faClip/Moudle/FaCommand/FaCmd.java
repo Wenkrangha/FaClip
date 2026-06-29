@@ -35,6 +35,20 @@ public class FaCmd {
     private boolean requireOP;
     /** Bukkit 命令对象 */
     private Command command;
+    /** 是否只为帮助命令 **/
+    private boolean isOnlyForHelp;
+
+    public boolean isOnlyForHelp() {
+        return isOnlyForHelp;
+    }
+
+    public void setOnlyForHelp(boolean onlyForHelp) {
+        isOnlyForHelp = onlyForHelp;
+    }
+
+
+
+
 
     public String getHelp() {
         return Help;
