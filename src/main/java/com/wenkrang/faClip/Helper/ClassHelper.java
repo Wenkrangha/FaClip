@@ -66,7 +66,7 @@ public class ClassHelper {
                     .filter(i -> i.getName().endsWith(".class"))
                     .map(i -> i.getName().substring(0, i.getName().length() - 6)
                             .replace(".class", "")
-                            .replace("/", "."))
+                            .replace(File.separator, "."))
                     .map(i -> {
                         try {
                             return Class.forName(i);
@@ -102,7 +102,7 @@ public class ClassHelper {
             File[] files = file.listFiles();
             if (files != null) {
                 for (File currentFile : files) {
-                    String clazzPath = workSpace + file.getName() + "/";
+                    String clazzPath = workSpace + file.getName() + File.separator;
 
                     // 递归导入类
                     classes.addAll(getClasses(currentFile, clazzPath));
@@ -113,11 +113,11 @@ public class ClassHelper {
             // 转换为Binary Name
             String preClassName = (workSpace + file.getName())
                     .replace(".class","")
-                    .replace("/", ".");
+                    .replace(File.separator, ".");
             // 这里去掉第一次循环加上的运行目录名
             String className =
                     preClassName
-                    .substring((preClassName.split("\\.")[0] + "/").length());
+                    .substring((preClassName.split("\\.")[0] + File.separator).length());
 
             try {
                 // 导入类

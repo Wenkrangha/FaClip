@@ -39,7 +39,7 @@ public final class FaClip extends JavaPlugin {
     }
 
     @Cmd("testmain")
-    @OnlyForHelp(true)
+    @OnlyForHelp
     @Help("测试")
     public static void test() {}
 

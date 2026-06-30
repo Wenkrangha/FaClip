@@ -10,9 +10,7 @@ import java.lang.reflect.Method;
 public class CmdOnlyForHelpHandler implements FaAnnotationHandler{
     @Override
     public void handle(FaCmd command, Method method) {
-        boolean value = method.getAnnotation(OnlyForHelp.class).value();
-
-        command.setOnlyForHelp(value);
+        command.setOnlyForHelp(true);
     }
 
     @Override

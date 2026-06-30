@@ -6,6 +6,9 @@ import com.wenkrang.faClip.Moudle.FaCommand.Annotation.ParamArrayDes;
 import com.wenkrang.faClip.Moudle.FaCommand.Annotation.ParamDes;
 import com.wenkrang.faClip.Moudle.FaCommand.FaCmd;
 import com.wenkrang.faClip.Moudle.FaCommand.FaCmdInterpreter.FaCmdContext;
+import com.wenkrang.faClip.Moudle.FaCommand.FaParam.BukkitParam.EffectParam;
+import com.wenkrang.faClip.Moudle.FaCommand.FaParam.BukkitParam.MaterialParam;
+import com.wenkrang.faClip.Moudle.FaCommand.FaParam.BukkitParam.PlayerParam;
 import com.wenkrang.faClip.Moudle.FaCommand.Helper.CmdNodeHelper;
 import com.wenkrang.faClip.Moudle.FaCommand.FaParam.JavaParam.*;
 import org.jetbrains.annotations.NotNull;
@@ -29,6 +32,9 @@ public class FaParam {
         simpleParams.add(new ShortParam());
         simpleParams.add(new ByteParam());
         simpleParams.add(new CharParam());
+        simpleParams.add(new EffectParam());
+        simpleParams.add(new MaterialParam());
+        simpleParams.add(new PlayerParam());
     }
 
     /**

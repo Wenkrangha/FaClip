@@ -55,7 +55,7 @@ public class FaHelperGenerator {
      * 生成帮助信息
      * @param node 节点
      */
-    public @Nullable List<String> generate(String node) {
+    public @NotNull List<String> generate(String node) {
         // 获取节点下的命令（包括该节点的命令）
         List<FaCmd> list = faCmdInstance.getFaCmds().stream()
                 .filter(i -> i.getNode().startsWith(node))
@@ -106,6 +106,6 @@ public class FaHelperGenerator {
             return msg;
         }
 
-        return null;
+        return new ArrayList<>();
     }
 }

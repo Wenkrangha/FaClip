@@ -25,6 +25,7 @@ public class CommandManager {
 
     private CommandMap commandMap;
     private Field bukkitCommandMap;
+    private Field knownCommandsField;
 
     /**
      * 构造函数，通过反射获取 Bukkit 的 CommandMap 实例。
@@ -35,6 +36,9 @@ public class CommandManager {
             bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
             bukkitCommandMap.setAccessible(true);
             commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
+            knownCommandsField = commandMap.getClass().getDeclaredField("knownCommands");
+            // 允许访问
+            knownCommandsField.setAccessible(true);
         } catch (NoSuchFieldException | IllegalAccessException e) {
             waring(t("FaCommand.Error.CommandMap.NotFound"));
         }
@@ -83,10 +87,6 @@ public class CommandManager {
     }
 
     public void unregister(String string) throws NoSuchFieldException, IllegalAccessException {
-        // 这里获取CommandMap里面的KnownCommands的反射
-        Field knownCommandsField = commandMap.getClass().getDeclaredField("knownCommands");
-        // 允许访问
-        knownCommandsField.setAccessible(true);
         // 类型基本检查
         if (knownCommandsField.get(commandMap) instanceof Map<?,?>){
             // 获取实例

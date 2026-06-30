@@ -5,6 +5,7 @@ import com.wenkrang.faClip.Moudle.FaCommand.FaCmdInstance;
 import com.wenkrang.faClip.Moudle.FaCommand.Helper.CmdNodeHelper;
 import com.wenkrang.faClip.Moudle.FaCommand.FaParam.FaParam;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
@@ -52,7 +53,7 @@ public record FaGuesser(FaCmdInstance faCmdInstance) {
      * @param args 实际参数列表
      * @return 符合条件的命令列表
      */
-    public @NotNull List<FaCmd> guessFaCmd(@NotNull List<String> args, @NotNull guessMode mode) {
+    public @Nullable List<FaCmd> guessFaCmd(@NotNull List<String> args, @NotNull guessMode mode) {
         // 猜测节点
         // 首先分出参数中的命令节点和参数
         // 命令节点是主命令和子命令，参数是方法参数
@@ -62,6 +63,8 @@ public record FaGuesser(FaCmdInstance faCmdInstance) {
 
         // 1.主命令空
         // 由于主命令是空的，所以全部匹配，没必要浪费算力
+
+        if (faCmdInstance.getNodes().isEmpty()) return null;
 
         if (args.isEmpty())
             return mode.equals(guessMode.fuzzy) ?

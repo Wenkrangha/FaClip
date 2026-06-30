@@ -10,15 +10,12 @@ import com.wenkrang.faClip.Moudle.FaCommand.FaParam.FaParam;
 import com.wenkrang.faClip.Moudle.FaMessage.Fm;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.IntStream;
 
-import static com.wenkrang.faClip.Moudle.FaMessage.Helper.i18nHelper.fw;
 import static com.wenkrang.faClip.Moudle.FaMessage.Helper.i18nHelper.t;
 import static com.wenkrang.faClip.Moudle.FaCommand.Helper.CmdHandleHelper.handleRootCommand;
 
@@ -69,7 +66,11 @@ public class FaCmdInterpreter {
             if (i >= removedNodeArgs.length) {
                 break;
             }
-            convertedArgs[nonNull.get(i)] = faChecker.parse(removedNodeArgs[i], method.getParameters()[nonNull.get(i)].getType());
+            Object parse = faChecker.parse(removedNodeArgs[i], method.getParameters()[nonNull.get(i)].getType());
+            if (parse == null) {
+                Fm.waring(t("FaCommand.Error.Interpreter.ArgsNPEWarning"));
+            }
+            convertedArgs[nonNull.get(i)] = parse;
         }
 
 
@@ -137,73 +138,70 @@ public class FaCmdInterpreter {
         // 命令执行器的args，由于Spigot没传根命令，需要自己加一下commandLabel
         // 这里构建完整参数列表
 
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                try {
-                    // 获取完整参数列表
-                    ArrayList<String> params = getCompleteParam(sender,commandLabel,args);
 
-                    // 创建命令节点解析器
-                    FaGuesser faGuesser = new FaGuesser(faCmdInstance);
+        try {
+            // 获取完整参数列表
+            ArrayList<String> params = getCompleteParam(sender, commandLabel, args);
 
-                    List<FaCmd> faCmds = faGuesser.guessFaCmd(params, FaGuesser.guessMode.full);
+            // 创建命令节点解析器
+            FaGuesser faGuesser = new FaGuesser(faCmdInstance);
 
-                    // 命令冲突
-                    if (faCmds.size() > 1) {
-                        Fm.error(t("FaCommand.Error.Interpreter.Conflict") + " " + faCmds.toString());
-                    }
+            List<FaCmd> faCmds = faGuesser.guessFaCmd(params, FaGuesser.guessMode.full);
 
-                    Optional<FaCmd> faCmd = faCmds.stream().findFirst();
+            if (faCmds == null) return false;
 
-                    // 命令存在
-                    if (faCmd.isPresent()) {
-                        // 权限检查
-                        if (faCmd.get().isRequireOP() && !sender.isOp()) {
-                            Fm.log(sender, t("FaCommand.Error.Interpreter.RequireOP"));
-                            return;
-                        }
-                        // 权限检查
-                        if (faCmd.get().getPermission() != null && !sender.hasPermission(faCmd.get().getPermission())) {
-                            Fm.log(sender, t("FaCommand.Error.Interpreter.NoPermission"));
-                            return;
-                        }
-                        // 输出帮助
-                        if (faCmd.get().isOnlyForHelp()) {
-                            FaHelperGenerator faHelperGenerator = new FaHelperGenerator(faCmdInstance);
-                            for (String help : faHelperGenerator.generate(faCmd.get().getNode())) {
-                                Fm.log(sender, help);
-                            }
-                            return;
-                        }
-
-
-                        Method method = faCmd.get().getMethod();
-
-                        // 转换为方法参数
-                        Object[] objects = convertParams(sender, method, params.toArray(String[]::new), faCmd.get().getNode());
-
-                        new BukkitRunnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    // 执行方法
-                                    method.invoke(faCmd.get(), objects);
-                                } catch (Exception e) {
-                                    Fm.error(e.getMessage());
-                                }
-                            }
-                        }.runTask(faCmdInstance.getPlugin());
-                    } else {
-                        // 命令不存在
-                        Fm.log(sender, t("FaCommand.Error.Interpreter.NotFound"));
-                    }
-
-                }catch (Exception e) {
-                    Fm.error(e.getMessage());
-                }
+            // 命令冲突
+            if (faCmds.size() > 1) {
+                Fm.error(sender,t("FaCommand.Error.Interpreter.Conflict") + " " + faCmds);
+                return false;
             }
-        }.runTaskAsynchronously(faCmdInstance.getPlugin());
+
+            Optional<FaCmd> faCmd = faCmds.stream().findFirst();
+
+            // 命令存在
+            if (faCmd.isPresent()) {
+                // 权限检查
+                if (faCmd.get().isRequireOP() && !sender.isOp()) {
+                    Fm.log(sender, t("FaCommand.Error.Interpreter.RequireOP"));
+                    return false;
+                }
+                // 权限检查
+                if (faCmd.get().getPermission() != null && !sender.hasPermission(faCmd.get().getPermission())) {
+                    Fm.log(sender, t("FaCommand.Error.Interpreter.NoPermission"));
+                    return false;
+                }
+                // 输出帮助
+                if (faCmd.get().isOnlyForHelp()) {
+                    FaHelperGenerator faHelperGenerator = new FaHelperGenerator(faCmdInstance);
+                    for (String help : faHelperGenerator.generate(faCmd.get().getNode())) {
+                        Fm.log(sender, help);
+                    }
+                    return false;
+                }
+
+
+                Method method = faCmd.get().getMethod();
+
+                // 转换为方法参数
+                Object[] objects = convertParams(sender, method, params.toArray(String[]::new), faCmd.get().getNode());
+
+                try {
+                    // 执行方法
+                    method.invoke(faCmd.get(), objects);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+                // 命令不存在
+                Fm.log(sender, t("FaCommand.Error.Interpreter.NotFound"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         return true;
     }
 
@@ -227,6 +225,8 @@ public class FaCmdInterpreter {
 
         // 获取命令，使用模糊模式
         List<FaCmd> faCmds = faGuesser.guessFaCmd(cArgs, FaGuesser.guessMode.fuzzy);
+
+        if (faCmds == null) return new ArrayList<>();
 
         // 然后获取所有命令的用法
         FaParam faParam = new FaParam();
