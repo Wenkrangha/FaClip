@@ -66,6 +66,8 @@ public class FaHelperGenerator {
             // 初始化输出列表
             ArrayList<String> msg = new  ArrayList<>();
 
+            msg.add("----------------------------------------------------------");
+
             // 获取该节点的命令
             FaCmd ExactCmd = list
                     .stream()
@@ -90,6 +92,7 @@ public class FaHelperGenerator {
             if (subCmds.isEmpty()) {
                 msg.add("");
                 msg.add(generateUsage(node));
+                msg.add("----------------------------------------------------------");
                 return msg;
             };
 
@@ -103,6 +106,7 @@ public class FaHelperGenerator {
                         + (cmd.getHelp() == null ? "" : cmd.getHelp()));
             }
 
+            msg.add("----------------------------------------------------------");
             return msg;
         }
 

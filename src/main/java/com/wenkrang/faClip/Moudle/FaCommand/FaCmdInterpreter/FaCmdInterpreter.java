@@ -187,7 +187,10 @@ public class FaCmdInterpreter {
 
                 try {
                     // 执行方法
-                    method.invoke(faCmd.get(), objects);
+                    Object invoke = method.invoke(faCmd.get(), objects);
+                    if (invoke instanceof Boolean) {
+                        return (Boolean) invoke;
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
