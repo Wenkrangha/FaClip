@@ -41,6 +41,7 @@ public class CommandManager {
             knownCommandsField.setAccessible(true);
         } catch (NoSuchFieldException | IllegalAccessException e) {
             waring(t("FaCommand.Error.CommandMap.NotFound"));
+            e.printStackTrace();
         }
     }
 
