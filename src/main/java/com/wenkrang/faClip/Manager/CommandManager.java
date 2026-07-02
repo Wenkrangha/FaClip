@@ -10,6 +10,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +27,8 @@ public class CommandManager {
 
     private CommandMap commandMap;
     private Field bukkitCommandMap;
-    private Field knownCommandsField;
+
+    private Map<String, Command> knownCommands;
 
     /**
      * 构造函数，通过反射获取 Bukkit 的 CommandMap 实例。
@@ -36,13 +39,32 @@ public class CommandManager {
             bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
             bukkitCommandMap.setAccessible(true);
             commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
-            knownCommandsField = commandMap.getClass().getDeclaredField("knownCommands");
-            // 允许访问
-            knownCommandsField.setAccessible(true);
+
+            knownCommands = getKnownCommands();
         } catch (NoSuchFieldException | IllegalAccessException e) {
             waring(t("FaCommand.Error.CommandMap.NotFound"));
             e.printStackTrace();
         }
+    }
+
+    public Map<String, Command> getKnownCommands(){
+        try {
+            Field knownCommandsField = commandMap.getClass().getDeclaredField("knownCommands");
+            // 允许访问
+            knownCommandsField.setAccessible(true);
+
+            knownCommands = (Map<String, Command>) knownCommandsField.get(commandMap);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            try {
+                Method getKnownCommandsMethod = commandMap.getClass().getDeclaredMethod("getKnownCommands");
+
+                knownCommands = (Map<String, Command>) getKnownCommandsMethod.invoke(commandMap);
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+
+        return knownCommands;
     }
 
     /**
@@ -88,14 +110,9 @@ public class CommandManager {
     }
 
     public void unregister(String string) throws NoSuchFieldException, IllegalAccessException {
-        // 类型基本检查
-        if (knownCommandsField.get(commandMap) instanceof Map<?,?>){
-            // 获取实例
-            @SuppressWarnings("unchecked")
-            Map<String, Command> knownCommands = (Map<String, Command>) knownCommandsField.get(commandMap);
-            // 移除命令
-            knownCommands.remove(string);
-        }
+        // 移除命令
+        knownCommands.remove(string);
+
     }
 
     /**
