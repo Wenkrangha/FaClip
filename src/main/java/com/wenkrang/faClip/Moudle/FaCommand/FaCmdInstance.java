@@ -97,6 +97,7 @@ public class FaCmdInstance {
      * @param commandClasses 命令类数组
      */
     public void enableFor(Class<?> @NotNull [] commandClasses) {
+        Thread.currentThread().setContextClassLoader(plugin.getClass().getClassLoader());
         registerCommands(commandClasses);
     }
 

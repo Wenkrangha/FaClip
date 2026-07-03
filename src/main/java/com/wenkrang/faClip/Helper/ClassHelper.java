@@ -72,6 +72,7 @@ public class ClassHelper {
                             return Class.forName(i);
                         } catch (ClassNotFoundException e) {
                             waring(ft("FaCommand.Error.ClassHelper.CannotGetClass", i));
+                            e.printStackTrace();
                         }
                         return null;
                     })
