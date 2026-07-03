@@ -4,6 +4,7 @@ import com.wenkrang.faClip.Helper.ClassHelper;
 import com.wenkrang.faClip.Manager.CommandManager;
 import com.wenkrang.faClip.Moudle.FaCommand.AnnotationHandler.*;
 import com.wenkrang.faClip.Moudle.FaCommand.FaCmdInterpreter.FaCmdInterpreter;
+import com.wenkrang.faClip.Moudle.FaLib.FaClassLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -97,7 +98,13 @@ public class FaCmdInstance {
      * @param commandClasses 命令类数组
      */
     public void enableFor(Class<?> @NotNull [] commandClasses) {
-        Thread.currentThread().setContextClassLoader(plugin.getClass().getClassLoader());
+        if (Thread.currentThread().getContextClassLoader() instanceof FaClassLoader) {
+            registerCommands(commandClasses);
+            return;
+        }
+
+        FaClassLoader faClassLoader = new FaClassLoader(plugin);
+        Thread.currentThread().setContextClassLoader(faClassLoader);
         registerCommands(commandClasses);
     }
 
@@ -106,6 +113,8 @@ public class FaCmdInstance {
      * @param plugin 插件
      */
     public void enableForAll(@NotNull Plugin plugin) {
+        FaClassLoader faClassLoader = new FaClassLoader(plugin);
+        Thread.currentThread().setContextClassLoader(faClassLoader);
         enableFor(ClassHelper.getClasses(plugin.getClass()).toArray(Class[]::new));
     }
     
