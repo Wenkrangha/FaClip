@@ -77,7 +77,7 @@ public class FaHelperGenerator {
 
             // 添加该节点的帮助信息
             if (ExactCmd != null) {
-                msg.add(ExactCmd.getHelp() == null ? "" : ExactCmd.getHelp());
+                msg.add(ExactCmd.getHelp() == null ? "" :  "    " + ExactCmd.getHelp());
                 msg.add("");
             }
 
@@ -91,7 +91,7 @@ public class FaHelperGenerator {
             // 子命令为空
             if (subCmds.isEmpty()) {
                 msg.add("");
-                msg.add(generateUsage(node));
+                msg.add("    " + generateUsage(node));
                 msg.add("----------------------------------------------------------");
                 return msg;
             };
@@ -102,8 +102,8 @@ public class FaHelperGenerator {
             // 添加子命令帮助信息
             for (FaCmd cmd : subCmds) {
                 // 添加
-                msg.add(String.format(format, cmd.getName() == null ? "" : cmd.getName())
-                        + (cmd.getHelp() == null ? "" : cmd.getHelp()));
+                msg.add(String.format(format, cmd.getName() == null ? "" : "    " + cmd.getName())
+                        + (cmd.getHelp() == null ? "" : "    " + cmd.getHelp()));
             }
 
             msg.add("----------------------------------------------------------");

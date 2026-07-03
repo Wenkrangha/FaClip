@@ -1,5 +1,6 @@
 package com.wenkrang.faClip.Helper;
 
+import com.wenkrang.faClip.Moudle.FaMessage.Fm;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -40,8 +41,9 @@ public class ClassHelper {
             // 这里获取到该jar的文件夹位置
             File file = new File(clazz.getProtectionDomain().getCodeSource().getLocation().getFile());
 
+
             // 导入Jar内所有的类
-            classes.addAll(handleJarFile(file));
+            classes.addAll(handleJarFile(file, clazz.getClassLoader()));
         }
 
         return classes;
@@ -53,7 +55,7 @@ public class ClassHelper {
      * @param file jar文件
      * @return 类列表
      */
-    public static @NotNull ArrayList<Class<?>> handleJarFile(@NotNull File file) {
+    public static @NotNull ArrayList<Class<?>> handleJarFile(@NotNull File file, ClassLoader classLoader) {
         ArrayList<Class<?>> classes = new ArrayList<>();
 
         // 用try来打开JarFile
@@ -66,13 +68,12 @@ public class ClassHelper {
                     .filter(i -> i.getName().endsWith(".class"))
                     .map(i -> i.getName().substring(0, i.getName().length() - 6)
                             .replace(".class", "")
-                            .replace(File.separator, "."))
+                            .replace("/", "."))
                     .map(i -> {
                         try {
-                            return Class.forName(i);
+                            return Class.forName(i, true, classLoader);
                         } catch (ClassNotFoundException e) {
                             waring(ft("FaCommand.Error.ClassHelper.CannotGetClass", i));
-                            e.printStackTrace();
                         }
                         return null;
                     })

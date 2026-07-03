@@ -98,13 +98,6 @@ public class FaCmdInstance {
      * @param commandClasses 命令类数组
      */
     public void enableFor(Class<?> @NotNull [] commandClasses) {
-        if (Thread.currentThread().getContextClassLoader() instanceof FaClassLoader) {
-            registerCommands(commandClasses);
-            return;
-        }
-
-        FaClassLoader faClassLoader = new FaClassLoader(plugin);
-        Thread.currentThread().setContextClassLoader(faClassLoader);
         registerCommands(commandClasses);
     }
 
@@ -113,8 +106,6 @@ public class FaCmdInstance {
      * @param plugin 插件
      */
     public void enableForAll(@NotNull Plugin plugin) {
-        FaClassLoader faClassLoader = new FaClassLoader(plugin);
-        Thread.currentThread().setContextClassLoader(faClassLoader);
         enableFor(ClassHelper.getClasses(plugin.getClass()).toArray(Class[]::new));
     }
     
