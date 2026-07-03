@@ -66,7 +66,7 @@ public class FaHelperGenerator {
             // 初始化输出列表
             ArrayList<String> msg = new  ArrayList<>();
 
-            msg.add("----------------------------------------------------------");
+            msg.add("------------------------------------------------------");
 
             // 获取该节点的命令
             FaCmd ExactCmd = list

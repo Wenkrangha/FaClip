@@ -57,20 +57,20 @@ public class FaCmdInterpreter {
                     if(method.getParameters()[i].getType().equals(FaCmdContext.class))
                         convertedArgs[i] = new FaCmdContext(sender, Arrays.stream(args).skip(1).toArray(String[]::new));
                 });
-        // 获取真正的参数位
-        List<Integer> nonNull = IntStream.range(0, method.getParameterCount())
-                .filter(i -> convertedArgs[i] != null)
+        // 获取需要填充的参数位（空位置）
+        List<Integer> nullPositions = IntStream.range(0, method.getParameterCount())
+                .filter(i -> convertedArgs[i] == null)
                 .boxed().toList();
         // 转换参数
-        for (int i = 0;i < nonNull.size(); i++) {
+        for (int i = 0;i < nullPositions.size(); i++) {
             if (i >= removedNodeArgs.length) {
                 break;
             }
-            Object parse = faChecker.parse(removedNodeArgs[i], method.getParameters()[nonNull.get(i)].getType());
+            Object parse = faChecker.parse(removedNodeArgs[i], method.getParameters()[nullPositions.get(i)].getType());
             if (parse == null) {
                 Fm.waring(t("FaCommand.Error.Interpreter.ArgsNPEWarning"));
             }
-            convertedArgs[nonNull.get(i)] = parse;
+            convertedArgs[nullPositions.get(i)] = parse;
         }
 
 

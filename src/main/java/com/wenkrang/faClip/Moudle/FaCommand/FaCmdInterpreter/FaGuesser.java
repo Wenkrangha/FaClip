@@ -93,7 +93,7 @@ public record FaGuesser(FaCmdInstance faCmdInstance) {
         }
 
         // 回退到最后一个匹配的位置
-        if (counter > 0) counter--;
+        if (counter > 0 && counter != convertedArgs.length()) counter--;
 
         // 这里获取结果
         String prefix = convertedArgs.substring(0, counter);
