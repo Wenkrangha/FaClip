@@ -92,7 +92,7 @@ public class FaHelperGenerator {
             if (subCmds.isEmpty()) {
                 msg.add("");
                 msg.add("    " + generateUsage(node));
-                msg.add("----------------------------------------------------------");
+                msg.add("------------------------------------------------------");
                 return msg;
             };
 
@@ -106,7 +106,7 @@ public class FaHelperGenerator {
                         + (cmd.getHelp() == null ? "" : "    " + cmd.getHelp()));
             }
 
-            msg.add("----------------------------------------------------------");
+            msg.add("------------------------------------------------------");
             return msg;
         }
 
