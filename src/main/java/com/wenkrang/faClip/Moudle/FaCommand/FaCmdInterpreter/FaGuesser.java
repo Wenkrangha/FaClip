@@ -92,6 +92,9 @@ public record FaGuesser(FaCmdInstance faCmdInstance) {
             counter++;
         }
 
+        // 回退到最后一个匹配的位置
+        if (counter > 0) counter--;
+
         // 这里获取结果
         String prefix = convertedArgs.substring(0, counter);
         if (prefix.charAt(prefix.length() - 1) == '.') prefix = prefix.substring(0, prefix.length() - 1);
