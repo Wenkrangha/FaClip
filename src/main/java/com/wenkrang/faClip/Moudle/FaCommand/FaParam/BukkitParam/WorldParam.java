@@ -3,46 +3,38 @@ package com.wenkrang.faClip.Moudle.FaCommand.FaParam.BukkitParam;
 import com.wenkrang.faClip.Moudle.FaCommand.Annotation.DesProvider;
 import com.wenkrang.faClip.Moudle.FaCommand.FaCmdInterpreter.FaCmdContext;
 import com.wenkrang.faClip.Moudle.FaCommand.FaParam.SimpleParam;
-import org.bukkit.Effect;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.Type;
-import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
-public class EffectParam implements SimpleParam, DesProvider {
+public class WorldParam implements SimpleParam, DesProvider {
     @Override
     public @NotNull String[] getDes(FaCmdContext faCmdContext) {
-        return Arrays.stream(Effect.values()).map(Enum::name).toArray(String[]::new);
+        return Bukkit.getWorlds().stream().map(World::getName).toArray(String[]::new);
     }
 
     @Override
     public Set<Type> getType() {
-        return Set.of(Effect.class);
+        return Set.of(World.class);
     }
 
     @Override
     public boolean check(String param) {
-       try {
-           Effect.valueOf(param);
-           return true;
-       } catch (IllegalArgumentException e) {
-           return false;
-       }
+        return Bukkit.getWorlds().stream().anyMatch(world -> world.getName().equals(param));
     }
 
     @Override
     public Object convert(String param) {
-        try {
-            return Effect.valueOf(param);
-        } catch (IllegalArgumentException e) {
-            return null;
-        }
+        return Bukkit.getWorlds().stream().filter(i -> i.getName().equals(param)).findFirst();
     }
 
     @Override
     public @Nullable String getName(Type type) {
-        return getType().equals(type) ? "Effect" : null;
+        return getType().contains(type) ? "World" : null;
     }
 }

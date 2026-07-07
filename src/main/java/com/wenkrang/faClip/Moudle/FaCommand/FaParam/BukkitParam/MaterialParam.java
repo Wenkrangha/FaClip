@@ -45,6 +45,6 @@ public class MaterialParam implements SimpleParam, DesProvider {
 
     @Override
     public @Nullable String getName(Type type) {
-        return "Material";
+        return getType().equals(type) ? "Material" : null;
     }
 }

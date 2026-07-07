@@ -66,8 +66,8 @@ public class FaHelperGenerator {
             // 初始化输出列表
             ArrayList<String> msg = new  ArrayList<>();
 
-            msg.add("------------------------------------------------------");
-
+            msg.add("-----------------------------------------------------");
+            msg.add("");
             // 获取该节点的命令
             FaCmd ExactCmd = list
                     .stream()
@@ -77,7 +77,7 @@ public class FaHelperGenerator {
 
             // 添加该节点的帮助信息
             if (ExactCmd != null) {
-                msg.add(ExactCmd.getHelp() == null ? "" :  "    " + ExactCmd.getHelp());
+                msg.add(ExactCmd.getHelp() == null ? "" :  "  " + ExactCmd.getHelp());
                 msg.add("");
             }
 
@@ -92,7 +92,8 @@ public class FaHelperGenerator {
             if (subCmds.isEmpty()) {
                 msg.add("");
                 msg.add("    " + generateUsage(node));
-                msg.add("------------------------------------------------------");
+                msg.add("");
+                msg.add("-----------------------------------------------------");
                 return msg;
             };
 
@@ -102,11 +103,11 @@ public class FaHelperGenerator {
             // 添加子命令帮助信息
             for (FaCmd cmd : subCmds) {
                 // 添加
-                msg.add(String.format(format, cmd.getName() == null ? "" : "    " + cmd.getName())
-                        + (cmd.getHelp() == null ? "" : "    " + cmd.getHelp()));
+                msg.add(String.format(format, cmd.getName() == null ? "" : "  " + cmd.getName())
+                        + (cmd.getHelp() == null ? "" : "  " + cmd.getHelp()));
             }
-
-            msg.add("------------------------------------------------------");
+            msg.add("");
+            msg.add("-----------------------------------------------------");
             return msg;
         }
 

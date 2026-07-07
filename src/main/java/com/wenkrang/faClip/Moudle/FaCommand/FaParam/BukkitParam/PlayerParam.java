@@ -30,7 +30,7 @@ public class PlayerParam implements SimpleParam, DesProvider {
 
     @Override
     public @Nullable String getName(Type type) {
-        return "Player";
+        return getType().equals(type) ? "Player" : null;
     }
 
     @Override

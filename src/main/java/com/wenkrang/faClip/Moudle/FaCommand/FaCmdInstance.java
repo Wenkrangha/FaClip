@@ -4,7 +4,6 @@ import com.wenkrang.faClip.Helper.ClassHelper;
 import com.wenkrang.faClip.Manager.CommandManager;
 import com.wenkrang.faClip.Moudle.FaCommand.AnnotationHandler.*;
 import com.wenkrang.faClip.Moudle.FaCommand.FaCmdInterpreter.FaCmdInterpreter;
-import com.wenkrang.faClip.Moudle.FaLib.FaClassLoader;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
