@@ -24,8 +24,6 @@ public final class FaClip extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
-        faCmdInstance = FaCmdInstance.create(this);
-        faCmdInstance.enableForAll(this);
     }
 
     /**
@@ -35,21 +33,6 @@ public final class FaClip extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        faCmdInstance.close();
     }
 
-    @Cmd("testmain")
-    @OnlyForHelp
-    @Help("测试")
-    public static void test() {}
-
-    @Cmd("testmain.A")
-    @Help("测试A")
-    public static void A(FaCmdContext faCmdContext){
-        faCmdContext.sender().sendMessage("a");
-    }
-
-    @Cmd("testmain.B")
-    @Help("测试B")
-    public static void B(){}
 }
