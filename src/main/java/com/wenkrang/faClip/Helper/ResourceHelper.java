@@ -9,12 +9,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.stream.Collectors;
 
-import static com.wenkrang.faClip.Moudle.FaMessage.Fm.waring;
-import static com.wenkrang.faClip.Moudle.FaMessage.Helper.i18nHelper.ft;
+import static com.wenkrang.faClip.Module.FaMessage.Fm.waring;
+import static com.wenkrang.faClip.Module.FaMessage.Helper.i18nHelper.ft;
 
 public class ResourceHelper {
     // 存储资源路径而不是 URL

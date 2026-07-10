@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 
-import static com.wenkrang.faClip.Moudle.FaMessage.Fm.waring;
+import static com.wenkrang.faClip.Module.FaMessage.Fm.waring;
 
 /**
  * 文件操作帮助类

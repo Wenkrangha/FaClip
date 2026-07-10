@@ -15,8 +15,8 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
-import static com.wenkrang.faClip.Moudle.FaMessage.Helper.i18nHelper.t;
-import static com.wenkrang.faClip.Moudle.FaMessage.Fm.waring;
+import static com.wenkrang.faClip.Module.FaMessage.Helper.i18nHelper.t;
+import static com.wenkrang.faClip.Module.FaMessage.Fm.waring;
 
 /**
  * CommandManager 类用于管理 Bukkit 插件中的命令注册、分发和补全功能。

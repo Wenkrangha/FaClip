@@ -1,10 +1,10 @@
 package com.wenkrang.faClip;
 
-import com.wenkrang.faClip.Moudle.FaCommand.Annotation.Cmd;
-import com.wenkrang.faClip.Moudle.FaCommand.Annotation.Help;
-import com.wenkrang.faClip.Moudle.FaCommand.Annotation.OnlyForHelp;
-import com.wenkrang.faClip.Moudle.FaCommand.FaCmdInstance;
-import com.wenkrang.faClip.Moudle.FaCommand.FaCmdInterpreter.FaCmdContext;
+import com.wenkrang.faClip.Module.FaCommand.Annotation.Cmd;
+import com.wenkrang.faClip.Module.FaCommand.Annotation.Help;
+import com.wenkrang.faClip.Module.FaCommand.Annotation.OnlyForHelp;
+import com.wenkrang.faClip.Module.FaCommand.FaCmdInstance;
+import com.wenkrang.faClip.Module.FaCommand.FaCmdInterpreter.FaCmdContext;
 import org.bukkit.plugin.java.JavaPlugin;
 
 

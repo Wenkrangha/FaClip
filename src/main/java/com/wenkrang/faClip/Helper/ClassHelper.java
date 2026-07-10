@@ -1,18 +1,12 @@
 package com.wenkrang.faClip.Helper;
 
-import com.wenkrang.faClip.Moudle.FaMessage.Fm;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.jar.JarFile;
-import java.util.stream.Stream;
 
-import static com.wenkrang.faClip.Moudle.FaMessage.Helper.i18nHelper.ft;
-import static com.wenkrang.faClip.Moudle.FaMessage.Fm.waring;
+import static com.wenkrang.faClip.Module.FaMessage.Helper.i18nHelper.ft;
+import static com.wenkrang.faClip.Module.FaMessage.Fm.waring;
 
 /**
  * 类操作帮助类
