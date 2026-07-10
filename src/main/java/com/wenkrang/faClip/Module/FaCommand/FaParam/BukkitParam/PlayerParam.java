@@ -20,12 +20,15 @@ public class PlayerParam implements SimpleParam, DesProvider {
 
     @Override
     public boolean check(String param) {
-        return param.matches("\\w+");
+        if (param.matches("\\w+")){
+            return Bukkit.getPlayerExact(param) != null;
+        }
+        return false;
     }
 
     @Override
     public Object convert(String param) {
-        return Bukkit.getPlayer(param) == null ? Bukkit.getOfflinePlayer(param) : Bukkit.getPlayer(param);
+        return Bukkit.getPlayerExact(param);
     }
 
     @Override
