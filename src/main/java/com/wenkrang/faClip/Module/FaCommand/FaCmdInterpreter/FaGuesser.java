@@ -93,7 +93,9 @@ public record FaGuesser(FaCmdInstance faCmdInstance) {
         }
 
         // 回退到最后一个匹配的位置
-        if (counter > 0 && counter != convertedArgs.length()) counter--;
+        String substring = convertedArgs.substring(0, counter);
+        if (faCmdInstance.getNodes().stream()
+                .noneMatch(node -> node.startsWith(substring) && node.length() >= substring.length())) counter--;
 
         // 这里获取结果
         String prefix = convertedArgs.substring(0, counter);
