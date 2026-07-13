@@ -104,7 +104,7 @@ public class Fm {
      * @param msg 要输出的错误内容
      */
     public static void error(CommandSender sender, String msg) {
-        sender.sendMessage(prefix + " " + Scc.RED + "[-] " + Scc.RESET + msg);
+        sender.sendMessage(Scc.RED + "[-] " + Scc.RESET + msg);
     }
 
     /**
@@ -133,7 +133,7 @@ public class Fm {
      * @param msg 要输出的警告内容
      */
     public static void waring(CommandSender sender, String msg) {
-        sender.sendMessage(prefix + " " + Scc.YELLOW + "[!] " + Scc.RESET + msg);
+        sender.sendMessage(Scc.YELLOW + "[!] " + Scc.RESET + msg);
     }
 
     /**
@@ -162,7 +162,7 @@ public class Fm {
      * @param msg 要输出的调试内容
      */
     public static void debug(CommandSender sender, String msg) {
-        sender.sendMessage(prefix + " " + Scc.GREY + "[/] " + Scc.RESET + msg);
+        sender.sendMessage(Scc.GREY + "[/] " + Scc.RESET + msg);
     }
 
     /**
