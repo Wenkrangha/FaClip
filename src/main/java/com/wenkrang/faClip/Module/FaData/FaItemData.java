@@ -30,7 +30,11 @@ public class FaItemData extends FaData{
         return finalUUID;
     }
 
-    public static FaItemData get(ItemStack itemStack) {
+    /**
+     * 获取标准FaItem的NamespacedKey
+     * @return 标准FaItem的NamespacedKey
+     */
+    public static NamespacedKey getKey() {
         if (FaData.plugin == null) {
             plugin = detectCallingPlugin();
         }
@@ -39,7 +43,18 @@ public class FaItemData extends FaData{
                 i18nHelper.t("FaData.Exception.FaYamlData.PluginIsNotinitialized")
         );
 
-        key = new NamespacedKey(FaData.plugin, "FaItemData");
+        return new NamespacedKey(FaData.plugin, "FaItemData");
+    }
+
+    /**
+     * 创建一个FaItemData
+     * 注意：当一个物品第一次被创建FaItemData时，会为该物品生成一个UUID，
+     *      并保存在物品的持久化储存中，它将不能与其他普通物品堆叠
+     * @param itemStack 需要创建FaItemData的ItemStack
+     * @return 创建的FaItemData
+     */
+    public static FaItemData create(ItemStack itemStack) {
+        key = getKey();
 
         // 获取持久化储存
         PersistentDataContainer persistentDataContainer = itemStack.getItemMeta().getPersistentDataContainer();
@@ -60,5 +75,12 @@ public class FaItemData extends FaData{
         }
 
         return new FaItemData(finalUUID.toString());
+    }
+
+    public static boolean has(ItemStack itemStack) {
+        PersistentDataContainer persistentDataContainer = itemStack.getItemMeta().getPersistentDataContainer();
+        String s = persistentDataContainer.get(getKey(), PersistentDataType.STRING);
+
+        return s != null;
     }
 }
