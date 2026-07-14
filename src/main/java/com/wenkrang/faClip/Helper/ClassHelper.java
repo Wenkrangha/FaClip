@@ -5,8 +5,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static com.wenkrang.faClip.Module.FaMessage.Helper.i18nHelper.ft;
 import static com.wenkrang.faClip.Module.FaMessage.Fm.waring;
+import static com.wenkrang.faClip.Module.FaMessage.Helper.i18nHelper.ft;
 
 /**
  * 类操作帮助类

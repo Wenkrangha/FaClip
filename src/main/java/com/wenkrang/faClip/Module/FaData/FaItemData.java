@@ -1,13 +1,12 @@
 package com.wenkrang.faClip.Module.FaData;
 
+import com.wenkrang.faClip.Module.FaMessage.Helper.i18nHelper;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.ListPersistentDataTypeProvider;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
-import java.io.File;
 import java.util.UUID;
 
 public class FaItemData extends FaData{
@@ -15,25 +14,35 @@ public class FaItemData extends FaData{
         super("data/item/" + node);
     }
 
-    public static PersistentDataContainer getContainer(ItemStack itemStack) {
-        return itemStack.getItemMeta().getPersistentDataContainer();
-    }
-
-    public static NamespacedKey key = new NamespacedKey(FaData.plugin, "FaItemData");
+    public static NamespacedKey key;
 
     public static UUID initUUID(ItemStack itemStack) {
         UUID finalUUID = UUID.randomUUID();
 
-        PersistentDataContainer container = getContainer(itemStack);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+
+        PersistentDataContainer container = itemMeta.getPersistentDataContainer();
 
         container.set(key, PersistentDataType.STRING, finalUUID.toString());
+
+        itemStack.setItemMeta(itemMeta);
 
         return finalUUID;
     }
 
-    public static FaItemData create(ItemStack itemStack) {
+    public static FaItemData get(ItemStack itemStack) {
+        if (FaData.plugin == null) {
+            plugin = detectCallingPlugin();
+        }
+
+        if (plugin == null) throw new NullPointerException(
+                i18nHelper.t("FaData.Exception.FaYamlData.PluginIsNotinitialized")
+        );
+
+        key = new NamespacedKey(FaData.plugin, "FaItemData");
+
         // 获取持久化储存
-        PersistentDataContainer persistentDataContainer = getContainer(itemStack);
+        PersistentDataContainer persistentDataContainer = itemStack.getItemMeta().getPersistentDataContainer();
 
         // 临时UUID
         UUID finalUUID;

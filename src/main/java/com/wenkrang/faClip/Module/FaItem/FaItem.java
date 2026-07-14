@@ -3,67 +3,84 @@ package com.wenkrang.faClip.Module.FaItem;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataHolder;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 /**
  * 这是ItemStack的扩展物品类
  */
 public class FaItem extends ItemStack {
-    public ItemStack getItemStack() {
-        return itemStack;
-    }
+    private final Plugin plugin;
 
-    private final ItemStack itemStack;
-
-    public FaItem(ItemStack item) {
+    public FaItem(Plugin p,ItemStack item,String id) {
         super(item);
-        itemStack = item;
+        plugin = p;
+        namespacedKey = new NamespacedKey(p, id);
     }
 
-    public FaItem(Material material) {
+    public FaItem(Plugin p,Material material,String id) {
         super(new ItemStack(material));
-        itemStack = this;
+        plugin = p;
+        namespacedKey = new NamespacedKey(p, id);
     }
 
-    private final UUID id = UUID.randomUUID();
+    private final NamespacedKey namespacedKey;
 
-    public UUID getId() {
-        return id;
+    public tagMgr getTagMgr() {
+        return new tagMgr(plugin,this);
     }
 
+    /**
+     * 这是一个管理物品标签的类
+     */
     public static class tagMgr {
-        private final PersistentDataHolder holder;
-
         private final PersistentDataContainer container;
 
-        private final Map<String, String> tagMap = new HashMap<>();
+        private final Plugin plugin;
 
-        private UUID id;
+        private final ItemStack itemStack;
 
-        private NamespacedKey namespacedKey;
+        private final ItemMeta itemMeta;
 
-        public UUID getId() {
-            return id;
+        public tagMgr(Plugin p, ItemStack i) {
+            itemMeta = i.getItemMeta();
+            container = itemMeta.getPersistentDataContainer();
+            plugin = p;
+            itemStack = i;
         }
 
-        public tagMgr(Plugin plugin, PersistentDataHolder holder) {
-            this.holder = holder;
-            container = holder.getPersistentDataContainer();
+        public void save() {
+            itemStack.setItemMeta(itemMeta);
+        }
+        public void set(String key,String value){
+            NamespacedKey namespacedKey = new NamespacedKey(plugin,key);
 
+            container.set(namespacedKey, PersistentDataType.STRING, value);
 
+            save();
         }
 
-        public void init() {
+        public String get(String key){
+            NamespacedKey namespacedKey = new NamespacedKey(plugin,key);
 
+            return container.get(namespacedKey, PersistentDataType.STRING);
         }
 
+        public void remove(String key){
+            NamespacedKey namespacedKey = new NamespacedKey(plugin,key);
 
+            container.remove(namespacedKey);
+
+            save();
+        }
+
+        public boolean has(String key){
+            NamespacedKey namespacedKey = new NamespacedKey(plugin,key);
+
+            return container.has(namespacedKey, PersistentDataType.STRING);
+        }
     }
 }
 

@@ -3,10 +3,10 @@ package com.wenkrang.faClip.Module.FaData;
 import org.bukkit.OfflinePlayer;
 
 public class FaPlayerData extends FaData {
-    public OfflinePlayer player;
-    public String node;
+    private OfflinePlayer player;
+    private String node;
 
     public FaPlayerData(OfflinePlayer player,String n) {
-        super(player.getUniqueId() + "/" + n);
+        super("data/player/" + player.getUniqueId() + "/" + n);
     }
 }

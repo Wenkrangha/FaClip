@@ -4,9 +4,9 @@ import com.wenkrang.faClip.Module.FaCommand.AnnotationHandler.FaAnnotationHandle
 import com.wenkrang.faClip.Module.FaCommand.FaCmd;
 import com.wenkrang.faClip.Module.FaCommand.FaCmdInstance;
 import com.wenkrang.faClip.Module.FaCommand.FaHelperGenerator.FaHelperGenerator;
+import com.wenkrang.faClip.Module.FaCommand.FaParam.FaParam;
 import com.wenkrang.faClip.Module.FaCommand.Helper.CmdHandleHelper;
 import com.wenkrang.faClip.Module.FaCommand.Helper.CmdNodeHelper;
-import com.wenkrang.faClip.Module.FaCommand.FaParam.FaParam;
 import com.wenkrang.faClip.Module.FaMessage.Fm;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
@@ -16,8 +16,8 @@ import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.IntStream;
 
-import static com.wenkrang.faClip.Module.FaMessage.Helper.i18nHelper.t;
 import static com.wenkrang.faClip.Module.FaCommand.Helper.CmdHandleHelper.handleRootCommand;
+import static com.wenkrang.faClip.Module.FaMessage.Helper.i18nHelper.t;
 
 public class FaCmdInterpreter {
     private final FaCmdInstance faCmdInstance;
