@@ -3,6 +3,11 @@ package com.wenkrang.faClip.Module.FaItem;
 import com.wenkrang.faClip.Helper.ResourceHelper;
 import com.wenkrang.faClip.Module.FaData.FaData;
 import com.wenkrang.faClip.Module.FaItem.FaItemInterpreter.FaItemInterpreter;
+import org.bukkit.NamespacedKey;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
 
 import java.io.InputStream;
@@ -80,5 +85,18 @@ public class FaItemInstance {
         for (String item : items) {
             load(item);
         }
+    }
+
+    /**
+     * 判断物品是否等于指定 ID
+     *
+     * @param itemStack 要判断的物品
+     * @param id        要判断的 ID
+     * @return 是否等于指定 ID
+     */
+    public boolean equals(ItemStack itemStack, String id) {
+        tagMgr tagMgr = new tagMgr(plugin, itemStack);
+
+        return tagMgr.has("id") && id.equals(tagMgr.get("id"));
     }
 }

@@ -27,7 +27,7 @@ public class FaItemInterpreter {
         FaItem faItem = new FaItem(plugin, Material.AIR);
 
         for (FaItemHandler faItemHandler : handlers) {
-            faItemHandler.handle(faItem, yamlConfiguration);
+            faItemHandler.handle(faItem, yamlConfiguration, this);
         }
 
         return faItem;

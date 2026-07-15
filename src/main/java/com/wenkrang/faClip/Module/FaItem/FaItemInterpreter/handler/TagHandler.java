@@ -2,6 +2,7 @@ package com.wenkrang.faClip.Module.FaItem.FaItemInterpreter.handler;
 
 import com.wenkrang.faClip.FaClip;
 import com.wenkrang.faClip.Module.FaItem.FaItem;
+import com.wenkrang.faClip.Module.FaItem.FaItemInterpreter.FaItemInterpreter;
 import com.wenkrang.faClip.Module.FaItem.tagMgr;
 import com.wenkrang.faClip.Module.FaMessage.Helper.i18nHelper;
 import org.bukkit.configuration.ConfigurationSection;
@@ -16,7 +17,7 @@ public class TagHandler implements FaItemHandler{
     }
 
     @Override
-    public void handle(FaItem faItem, YamlConfiguration yamlConfiguration) {
+    public void handle(FaItem faItem, YamlConfiguration yamlConfiguration, FaItemInterpreter faItemInterpreter) {
         try {
             // 获取标签管理器
             tagMgr tagMgr = faItem.getTagMgr();

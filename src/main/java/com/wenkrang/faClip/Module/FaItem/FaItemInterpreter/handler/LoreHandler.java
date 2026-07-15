@@ -2,6 +2,7 @@ package com.wenkrang.faClip.Module.FaItem.FaItemInterpreter.handler;
 
 import com.wenkrang.faClip.FaClip;
 import com.wenkrang.faClip.Module.FaItem.FaItem;
+import com.wenkrang.faClip.Module.FaItem.FaItemInterpreter.FaItemInterpreter;
 import com.wenkrang.faClip.Module.FaMessage.Helper.i18nHelper;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -15,7 +16,7 @@ public class LoreHandler implements FaItemHandler {
     }
 
     @Override
-    public void handle(FaItem faItem, YamlConfiguration yamlConfiguration) {
+    public void handle(FaItem faItem, YamlConfiguration yamlConfiguration, FaItemInterpreter faItemInterpreter) {
         try {
             List<String> lore = yamlConfiguration.getStringList(getNode());
 
