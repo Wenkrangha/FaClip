@@ -252,7 +252,7 @@ public class FaCmdInterpreter {
         Object[] usages = faCmds.stream()
                 .filter(i -> !(i.isRequireOP() && !sender.isOp())) // 跳过权限检查失败的
                 .filter(i -> !(i.getPermission() != null && !sender.hasPermission(i.getPermission()))) //TODO:处理这个玩意，啥东西啊
-                .filter(i -> !(sender instanceof Player) && i.isForPlayer) // 跳过身份验证失败的
+                .filter(i -> sender instanceof Player && i.isForPlayer) // 跳过身份验证失败的
                 .map(i -> faParam.getUsage(i, new FaCmdContext(sender, args), true))
                 .filter(i -> i.length >= cArgs.size())
                 .map(i -> i[cArgs.size() - 1])
