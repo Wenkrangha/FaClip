@@ -57,6 +57,16 @@ public class FaCmd {
         Help = help;
     }
 
+    public boolean isForPlayer;
+
+    public boolean isForPlayer() {
+        return isForPlayer;
+    }
+
+    public void setForPlayer(boolean forPlayer) {
+        isForPlayer = forPlayer;
+    }
+
     /** 命令帮助信息 */
     private String Help;
 

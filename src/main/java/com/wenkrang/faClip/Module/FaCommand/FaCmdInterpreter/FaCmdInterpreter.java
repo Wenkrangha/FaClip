@@ -10,7 +10,9 @@ import com.wenkrang.faClip.Module.FaCommand.FaParam.FaParam;
 import com.wenkrang.faClip.Module.FaCommand.Helper.CmdHandleHelper;
 import com.wenkrang.faClip.Module.FaCommand.Helper.CmdNodeHelper;
 import com.wenkrang.faClip.Module.FaMessage.Fm;
+import com.wenkrang.faClip.Module.FaMessage.Helper.i18nHelper;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -177,6 +179,12 @@ public class FaCmdInterpreter {
                     Fm.log(sender, t("FaCommand.Error.Interpreter.NoPermission"));
                     return false;
                 }
+
+                if (faCmd.get().isForPlayer() && (!(sender instanceof Player))) {
+                    Fm.error(i18nHelper.t("FaCommand.Error.Interpreter.OnlyForPlayer"));
+                    return false;
+                }
+
                 // 输出帮助
                 if (faCmd.get().isOnlyForHelp()) {
                     FaHelperGenerator faHelperGenerator = new FaHelperGenerator(faCmdInstance);
@@ -244,6 +252,7 @@ public class FaCmdInterpreter {
         Object[] usages = faCmds.stream()
                 .filter(i -> !(i.isRequireOP() && !sender.isOp())) // 跳过权限检查失败的
                 .filter(i -> !(i.getPermission() != null && !sender.hasPermission(i.getPermission()))) //TODO:处理这个玩意，啥东西啊
+                .filter(i -> !(sender instanceof Player) && i.isForPlayer) // 跳过身份验证失败的
                 .map(i -> faParam.getUsage(i, new FaCmdContext(sender, args), true))
                 .filter(i -> i.length >= cArgs.size())
                 .map(i -> i[cArgs.size() - 1])
