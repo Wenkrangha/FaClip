@@ -114,7 +114,7 @@ public class FaCmdInterpreter {
                 .forEach(i -> i.handle(faCmd, method));
 
         // 如果没启用调试模式，就不启用调试命令
-        if (method.getAnnotation(Debug.class) != null && FaClip.debugger == null) return;
+        if (method.getAnnotation(Debug.class) != null && !FaClip.debug) return;
 
         register(faCmd);
     }

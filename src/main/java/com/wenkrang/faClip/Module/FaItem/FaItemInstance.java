@@ -3,6 +3,7 @@ package com.wenkrang.faClip.Module.FaItem;
 import com.wenkrang.faClip.Helper.ResourceHelper;
 import com.wenkrang.faClip.Module.FaData.FaData;
 import com.wenkrang.faClip.Module.FaItem.FaItemInterpreter.FaItemInterpreter;
+import com.wenkrang.faClip.Module.FaMessage.Fm;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -70,7 +71,7 @@ public class FaItemInstance {
         FaItem item = faItemInterpreter.interpreter(faData.getYaml());
         
         // 以物品的命名空间为键，注册到内部注册表
-        faItems.put(item.getNamespacedKey().getNamespace(), item);
+        faItems.put(item.getNamespacedKey().getKey(), item);
     }
     
     /**
@@ -98,5 +99,9 @@ public class FaItemInstance {
         tagMgr tagMgr = new tagMgr(plugin, itemStack);
 
         return tagMgr.has("id") && id.equals(tagMgr.get("id"));
+    }
+
+    public Map<String,FaItem> getAll() {
+        return faItems;
     }
 }

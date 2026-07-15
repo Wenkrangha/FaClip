@@ -19,6 +19,8 @@ public final class FaClip extends JavaPlugin {
 
     public static Debugger debugger;
 
+    public static boolean debug = false;
+
     /**
      * 插件启用时调用
      * 初始化命令实例并注册所有命令
@@ -34,7 +36,8 @@ public final class FaClip extends JavaPlugin {
         // 获取配置
         FaConfig faConfig = new FaConfig();
         System.out.println(faConfig.getFile());
-        if (faConfig.getBoolean("enableDebugger")){
+        debug = faConfig.getBoolean("enableDebugger");
+        if (debug){
             debugger = new Debugger();
             Fm.info(i18nHelper.t("FaDebugger.Info.Debugger.Enable"));
         }

@@ -1,11 +1,13 @@
 package com.wenkrang.faClip.Module.FaDebugger.module;
 
 import com.wenkrang.faClip.FaClip;
+import com.wenkrang.faClip.Helper.ResourceHelper;
 import com.wenkrang.faClip.Module.FaCommand.Annotation.Cmd;
 import com.wenkrang.faClip.Module.FaCommand.Annotation.Debug;
 import com.wenkrang.faClip.Module.FaCommand.Annotation.RequireOP;
 import com.wenkrang.faClip.Module.FaCommand.FaCmdInterpreter.FaCmdContext;
 import com.wenkrang.faClip.Module.FaItem.FaItem;
+import com.wenkrang.faClip.Module.FaItem.FaItemInstance;
 import com.wenkrang.faClip.Module.FaItem.FaItemInterpreter.FaItemInterpreter;
 import com.wenkrang.faClip.Module.FaItem.tagMgr;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -14,6 +16,8 @@ import org.bukkit.inventory.ItemStack;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
+import java.util.Map;
 
 public class FaItemDebugger {
 
@@ -26,33 +30,8 @@ public class FaItemDebugger {
     public static void loadItem(FaCmdContext context) {
         Player player = (Player) context.sender();
 
-        // 从 resources 加载 test.item
-        InputStream is = FaClip.plugin.getResource("FaDebugger/FaItem/test.item");
-        if (is == null) {
-            System.out.println("[FaItemDebugger] 找不到 FaDebugger/FaItem/test.item");
-            return;
-        }
-
-        YamlConfiguration yaml = YamlConfiguration.loadConfiguration(new InputStreamReader(is));
-
-        // 用 FaItemInterpreter 解析
-        FaItemInterpreter interpreter = new FaItemInterpreter(FaClip.plugin);
-        FaItem faItem = interpreter.interpreter(yaml);
-
-        // 打印解析结果
-        System.out.println("[FaItemDebugger] id: " + faItem.getNamespacedKey());
-        System.out.println("[FaItemDebugger] type: " + faItem.getType());
-        System.out.println("[FaItemDebugger] lore: " + faItem.getItemMeta().getLore());
-
-        // 读取 tag
-        tagMgr tagMgr = faItem.getTagMgr();
-        System.out.println("[FaItemDebugger] tag.a: " + tagMgr.get("a"));
-        System.out.println("[FaItemDebugger] tag.b: " + tagMgr.get("b"));
-        System.out.println("[FaItemDebugger] tag.c: " + tagMgr.get("c"));
-
-        // 给玩家物品
-        player.getInventory().addItem(faItem);
-        System.out.println("[FaItemDebugger] 物品已给予玩家");
+        FaItemInstance faItemInstance = new FaItemInstance(FaClip.plugin);
+        faItemInstance.loadAll();
     }
 
     /**

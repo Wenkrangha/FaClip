@@ -38,11 +38,7 @@ public class TagHandler implements FaItemHandler{
                     // 写入物品的Tag
                     tagMgr.set(key, value);
                 }
-            }else {
-                i18nHelper.fw("FaItem.Exception.FaItemInterpreter.CannotFoundNode", getNode());
             }
-
-
         } catch (Exception e) {
             i18nHelper.fw("FaItem.Exception.FaItemInterpreter.CannotFoundNode", getNode());
             if (FaClip.debugger != null) e.printStackTrace();

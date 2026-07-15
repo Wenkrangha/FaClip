@@ -20,10 +20,11 @@ public class LoreHandler implements FaItemHandler {
         try {
             List<String> lore = yamlConfiguration.getStringList(getNode());
 
-            ItemMeta itemMeta = faItem.getItemMeta();
-            itemMeta.setLore(lore);
-
-            faItem.setItemMeta(itemMeta);
+            if (!lore.isEmpty()) {
+                ItemMeta itemMeta = faItem.getItemMeta();
+                itemMeta.setLore(lore);
+                faItem.setItemMeta(itemMeta);
+            }
         } catch (Exception e) {
             i18nHelper.fw("FaItem.Exception.FaItemInterpreter.CannotFoundNode", getNode());
             if (FaClip.debugger != null) e.printStackTrace();
