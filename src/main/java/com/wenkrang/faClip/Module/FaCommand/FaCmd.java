@@ -3,6 +3,7 @@ package com.wenkrang.faClip.Module.FaCommand;
 import com.wenkrang.faClip.Module.FaCommand.FaCmdInterpreter.FaCmdInterpreter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
+import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Method;
@@ -13,6 +14,8 @@ import java.util.List;
  * 用于存储和管理单个命令的所有属性和配置信息
  */
 public class FaCmd {
+    /** 所属插件 */
+    private Plugin plugin;
     /** 命令名称 */
     private String name;
     /** 命令标签 */
@@ -45,10 +48,6 @@ public class FaCmd {
     public void setOnlyForHelp(boolean onlyForHelp) {
         isOnlyForHelp = onlyForHelp;
     }
-
-
-
-
 
     public String getHelp() {
         return Help;
@@ -265,5 +264,13 @@ public class FaCmd {
      */
     public void setRequireOP(boolean requireOP) {
         this.requireOP = requireOP;
+    }
+
+    public Plugin getPlugin() {
+        return plugin;
+    }
+
+    public void setPlugin(Plugin plugin) {
+        this.plugin = plugin;
     }
 }

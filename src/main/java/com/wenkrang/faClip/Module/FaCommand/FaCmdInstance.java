@@ -20,6 +20,7 @@ public class FaCmdInstance {
     private final ArrayList<FaCmd> faCmds = new ArrayList<>();
     private int refreshTaskId = -1;
     private FaCmdInterpreter faCmdInterpreter;
+    private boolean DebugMode = false;
 
     public ArrayList<String> getNodes() {
         return nodes;
@@ -148,5 +149,13 @@ public class FaCmdInstance {
 
     public Plugin getPlugin() {
         return plugin;
+    }
+
+    public boolean isDebugMode() {
+        return DebugMode;
+    }
+
+    public void setDebugMode(boolean debugMode) {
+        DebugMode = debugMode;
     }
 }

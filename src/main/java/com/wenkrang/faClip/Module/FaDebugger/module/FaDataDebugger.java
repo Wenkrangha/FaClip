@@ -1,6 +1,7 @@
 package com.wenkrang.faClip.Module.FaDebugger.module;
 
 import com.wenkrang.faClip.Module.FaCommand.Annotation.Cmd;
+import com.wenkrang.faClip.Module.FaCommand.Annotation.Debug;
 import com.wenkrang.faClip.Module.FaCommand.Annotation.RequireOP;
 import com.wenkrang.faClip.Module.FaCommand.FaCmdInterpreter.FaCmdContext;
 import com.wenkrang.faClip.Module.FaData.FaData;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 public class FaDataDebugger {
     @Cmd("fatest.data.yaml.set")
     @RequireOP
+    @Debug
     public static void set() {
         FaData faData = new FaData("data/test");
 
@@ -31,6 +33,7 @@ public class FaDataDebugger {
 
     @Cmd("fatest.data.yaml.get")
     @RequireOP
+    @Debug
     public static void get() {
         FaData faData = new FaData("data/test");
 
@@ -40,6 +43,7 @@ public class FaDataDebugger {
 
     @Cmd("fatest.data.player.set")
     @RequireOP
+    @Debug
     public static void set(FaCmdContext context) {
         FaData faData = new FaPlayerData((Player) context.sender(), "test");
 
@@ -57,6 +61,7 @@ public class FaDataDebugger {
 
     @Cmd("fatest.data.player.get")
     @RequireOP
+    @Debug
     public static void get(FaCmdContext context) {
         FaData faData = new FaPlayerData((Player) context.sender(), "test");
 
@@ -67,6 +72,7 @@ public class FaDataDebugger {
     // 对于物品的测试
     @Cmd("fatest.data.item.set")
     @RequireOP
+    @Debug
     public static void setItem(FaCmdContext context) {
         Player player = (Player) context.sender();
 
@@ -81,6 +87,7 @@ public class FaDataDebugger {
 
     @Cmd("fatest.data.item.get")
     @RequireOP
+    @Debug
     public static void getItem(FaCmdContext context) {
         Player player = (Player) context.sender();
 

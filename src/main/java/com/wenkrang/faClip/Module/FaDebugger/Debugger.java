@@ -2,8 +2,6 @@ package com.wenkrang.faClip.Module.FaDebugger;
 
 import com.wenkrang.faClip.FaClip;
 import com.wenkrang.faClip.Module.FaCommand.FaCmdInstance;
-import com.wenkrang.faClip.Module.FaData.FaConfig;
-import com.wenkrang.faClip.Module.FaData.FaData;
 
 /**
  * 这里是插件的调试类

@@ -1,6 +1,5 @@
 package com.wenkrang.faClip;
 
-import com.wenkrang.faClip.Module.FaCommand.FaCmdInstance;
 import com.wenkrang.faClip.Module.FaData.FaConfig;
 import com.wenkrang.faClip.Module.FaData.FaData;
 import com.wenkrang.faClip.Module.FaDebugger.Debugger;
@@ -15,9 +14,6 @@ import org.bukkit.plugin.java.JavaPlugin;
  * 负责插件的启动、关闭以及命令注册
  */
 public final class FaClip extends JavaPlugin {
-
-    /** 命令实例管理器 */
-    FaCmdInstance faCmdInstance;
 
     public static Plugin plugin;
 

@@ -1,5 +1,7 @@
 package com.wenkrang.faClip.Module.FaCommand.FaCmdInterpreter;
 
+import com.wenkrang.faClip.FaClip;
+import com.wenkrang.faClip.Module.FaCommand.Annotation.Debug;
 import com.wenkrang.faClip.Module.FaCommand.AnnotationHandler.FaAnnotationHandler;
 import com.wenkrang.faClip.Module.FaCommand.FaCmd;
 import com.wenkrang.faClip.Module.FaCommand.FaCmdInstance;
@@ -105,9 +107,14 @@ public class FaCmdInterpreter {
 
         FaCmd faCmd = new FaCmd(this);
 
+        faCmd.setPlugin(faCmdInstance.getPlugin());
+
         annotationHandlers.stream()
                 .filter(i -> method.isAnnotationPresent(i.getAnnotationClass()))
                 .forEach(i -> i.handle(faCmd, method));
+
+        // 如果没启用调试模式，就不启用调试命令
+        if (method.getAnnotation(Debug.class) != null && FaClip.debugger == null) return;
 
         register(faCmd);
     }
