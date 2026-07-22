@@ -4,12 +4,14 @@ import com.wenkrang.faClip.Helper.ResourceHelper;
 import com.wenkrang.faClip.Module.FaData.FaData;
 import com.wenkrang.faClip.Module.FaItem.FaItemInterpreter.FaItemInterpreter;
 import com.wenkrang.faClip.Module.FaMessage.Fm;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -95,7 +97,9 @@ public class FaItemInstance {
      * @param id        要判断的 ID
      * @return 是否等于指定 ID
      */
-    public boolean equals(ItemStack itemStack, String id) {
+    public boolean equals(@NotNull ItemStack itemStack, String id) {
+        if (itemStack.getItemMeta() == null) return false;
+
         tagMgr tagMgr = new tagMgr(plugin, itemStack);
 
         return tagMgr.has("id") && id.equals(tagMgr.get("id"));
