@@ -16,18 +16,6 @@ site:
           content:
             directory: ./docs/getting-started
     - type: section
-      key: section-faMessage
-      title: faMessage
-      path: famessage
-      children:
-        - type: space
-          key: space-faMessage
-          title: faMessage
-          path: famessage
-          default: true
-          content:
-            directory: ./docs/modules/faMessage
-    - type: section
       key: section-faData
       title: faData
       path: fadata
