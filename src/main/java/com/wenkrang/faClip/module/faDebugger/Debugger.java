@@ -1,6 +1,6 @@
 package com.wenkrang.faClip.module.faDebugger;
 
-import com.wenkrang.faClip.FaClip;
+import com.wenkrang.faClip.module.FaClip;
 import com.wenkrang.faClip.module.faCommand.FaCmdInstance;
 
 /**

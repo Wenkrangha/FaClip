@@ -1,4 +1,4 @@
 name: FaClip
 version: '1.0-SNAPSHOT'
-main: com.wenkrang.faClip.FaClip
+main: com.wenkrang.faClip.module.FaClip
 api-version: '1.21'

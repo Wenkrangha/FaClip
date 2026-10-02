@@ -1,4 +1,4 @@
-package com.wenkrang.faClip;
+package com.wenkrang.faClip.module;
 
 import com.wenkrang.faClip.module.faData.FaConfig;
 import com.wenkrang.faClip.module.faData.FaData;

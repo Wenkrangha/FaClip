@@ -2,7 +2,6 @@ package com.wenkrang.faClip.module.faIoC.helper;
 
 import com.wenkrang.faClip.helper.ClassHelper;
 import com.wenkrang.faClip.module.faIoC.FaIoCInstance;
-import com.wenkrang.faClip.module.faIoC.FaIoCObject;
 import com.wenkrang.faClip.module.faIoC.annotation.Qualifier;
 import com.wenkrang.faClip.module.faMessage.exception.FaIoCException;
 import org.jetbrains.annotations.Nullable;

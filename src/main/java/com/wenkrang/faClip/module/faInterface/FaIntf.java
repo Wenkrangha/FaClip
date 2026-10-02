@@ -3,7 +3,6 @@ package com.wenkrang.faClip.module.faInterface;
 import com.wenkrang.faClip.module.faCommand.helper.NodeHelper;
 import com.wenkrang.faClip.module.faInterface.param.FaParam;
 import com.wenkrang.faClip.module.faInterface.param.SimpleParam;
-import com.wenkrang.faClip.module.faMessage.exception.FaIntfException;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
