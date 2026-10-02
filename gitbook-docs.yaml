@@ -4,8 +4,9 @@ site:
   structure:
     - type: section
       key: section-getting-started
-      title: Getting Started
+      title: 快速上手
       path: getting-started
+      description: ""
       default: true
       children:
         - type: space
@@ -15,18 +16,6 @@ site:
           default: true
           content:
             directory: ./docs/getting-started
-    - type: section
-      key: section-faItem
-      title: faItem
-      path: faitem
-      children:
-        - type: space
-          key: space-faItem
-          title: faItem
-          path: faitem
-          default: true
-          content:
-            directory: ./docs/modules/faItem
     - type: section-group
       key: section-group-1
       title: 模块
@@ -69,6 +58,19 @@ site:
               default: true
               content:
                 directory: ./docs/modules/faWindow
+        - type: section
+          key: section-faItem
+          title: faItem
+          path: faitem
+          description: ""
+          children:
+            - type: space
+              key: space-faItem
+              title: faItem
+              path: faitem
+              default: true
+              content:
+                directory: ./docs/modules/faItem
         - type: section
           key: section-faRecipe
           title: faRecipe
