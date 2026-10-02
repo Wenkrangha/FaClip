@@ -16,18 +16,6 @@ site:
           content:
             directory: ./docs/getting-started
     - type: section
-      key: section-faBootstrap
-      title: faBootstrap
-      path: fabootstrap
-      children:
-        - type: space
-          key: space-faBootstrap
-          title: faBootstrap
-          path: fabootstrap
-          default: true
-          content:
-            directory: ./docs/modules/faBootstrap
-    - type: section
       key: section-faMessage
       title: faMessage
       path: famessage
