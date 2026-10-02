@@ -1,0 +1,160 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+version: 1
+
+site:
+  title: FaClip
+  structure:
+    # ── Getting Started ──────────────────────────────────
+    - type: section
+      key: section-getting-started
+      title: Getting Started
+      path: getting-started
+      default: true
+      children:
+        - type: space
+          key: space-overview
+          title: Overview
+          path: overview
+          default: true
+          content:
+            directory: ./docs/getting-started
+
+    # ── Modules ──────────────────────────────────────────
+    - type: section-group
+      key: section-group-modules
+      title: Modules
+      children:
+        # ── faBootstrap ──
+        - type: section
+          key: section-faBootstrap
+          title: faBootstrap
+          path: faBootstrap
+          children:
+            - type: space
+              key: space-faBootstrap
+              title: faBootstrap
+              path: faBootstrap
+              default: true
+              content:
+                directory: ./docs/modules/faBootstrap
+
+        # ── faMessage ──
+        - type: section
+          key: section-faMessage
+          title: faMessage
+          path: faMessage
+          children:
+            - type: space
+              key: space-faMessage
+              title: faMessage
+              path: faMessage
+              default: true
+              content:
+                directory: ./docs/modules/faMessage
+
+        # ── faData ──
+        - type: section
+          key: section-faData
+          title: faData
+          path: faData
+          children:
+            - type: space
+              key: space-faData
+              title: faData
+              path: faData
+              default: true
+              content:
+                directory: ./docs/modules/faData
+
+        # ── faCommand ──
+        - type: section
+          key: section-faCommand
+          title: faCommand
+          path: faCommand
+          children:
+            - type: space
+              key: space-faCommand
+              title: faCommand
+              path: faCommand
+              default: true
+              content:
+                directory: ./docs/modules/faCommand
+
+        # ── faWindow ──
+        - type: section
+          key: section-faWindow
+          title: faWindow
+          path: faWindow
+          children:
+            - type: space
+              key: space-faWindow
+              title: faWindow
+              path: faWindow
+              default: true
+              content:
+                directory: ./docs/modules/faWindow
+
+        # ── faItem ──
+        - type: section
+          key: section-faItem
+          title: faItem
+          path: faItem
+          children:
+            - type: space
+              key: space-faItem
+              title: faItem
+              path: faItem
+              default: true
+              content:
+                directory: ./docs/modules/faItem
+
+        # ── faRecipe ──
+        - type: section
+          key: section-faRecipe
+          title: faRecipe
+          path: faRecipe
+          children:
+            - type: space
+              key: space-faRecipe
+              title: faRecipe
+              path: faRecipe
+              default: true
+              content:
+                directory: ./docs/modules/faRecipe
+
+        # ── faInterface ──
+        - type: section
+          key: section-faInterface
+          title: faInterface
+          path: faInterface
+          children:
+            - type: space
+              key: space-faInterface
+              title: faInterface
+              path: faInterface
+              default: true
+              content:
+                directory: ./docs/modules/faInterface
+
+        # ── faResource ──
+        - type: section
+          key: section-faResource
+          title: faResource
+          path: faResource
+          children:
+            - type: space
+              key: space-faResource
+              title: faResource
+              path: faResource
+              default: true
+              content:
+                directory: ./docs/modules/faResource
+
+        # ── API Reference ──
+        - type: space
+          key: space-api
+          title: API Reference
+          path: api
+          default: false
+          content:
+            directory: ./docs/api
