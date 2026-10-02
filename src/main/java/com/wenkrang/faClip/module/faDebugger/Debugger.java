@@ -4,7 +4,7 @@ import com.wenkrang.faClip.module.FaClip;
 import com.wenkrang.faClip.module.faCommand.FaCmdInstance;
 
 /**
- * 这里是插件的调试类
+ * 这里是插件的调试类，用于FaClip自身开发调试
  */
 public class Debugger {
 

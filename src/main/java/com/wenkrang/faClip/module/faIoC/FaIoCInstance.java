@@ -1,6 +1,7 @@
 package com.wenkrang.faClip.module.faIoC;
 
 import com.wenkrang.faClip.helper.ClassHelper;
+import com.wenkrang.faClip.module.FaModule;
 import com.wenkrang.faClip.module.faIoC.annotation.Service;
 import com.wenkrang.faClip.module.faIoC.handlers.IoCInstanceHandler;
 import com.wenkrang.faClip.module.faIoC.helper.FaIoCDependencyProvider;
@@ -10,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FaIoCInstance {
+public class FaIoCInstance implements FaModule {
     private final FaIoCInterpreter faIoCInterpreter;
 
     private final FaIoCDependencyProvider dependencyProvider;
@@ -20,6 +21,8 @@ public class FaIoCInstance {
     private final Map<Class<?>, Object> envInstances = new HashMap<>();
 
     private final Plugin plugin;
+
+    private Status status = Status.STOPPED;
 
     public FaIoCInstance(Plugin plugin) {
         this.plugin = plugin;
@@ -47,6 +50,32 @@ public class FaIoCInstance {
 
     public FaIoCObject getContext(Class<?> clazz) {
         return iocContainer.get(clazz);
+    }
+
+    @Override
+    public void auto() {
+        status = Status.STARTING;
+
+        enableForAllService();
+
+        status = Status.READY;
+    }
+
+    @Override
+    public void close() {
+        iocContainer.clear();
+        envInstances.clear();
+        status = Status.STOPPED;
+    }
+
+    @Override
+    public Status status() {
+        return status;
+    }
+
+    @Override
+    public String getName() {
+        return "FaIoC";
     }
 
     public void enableForAllService() {

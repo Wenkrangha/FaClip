@@ -1,6 +1,7 @@
 package com.wenkrang.faClip.module.faWindow;
 
 import com.wenkrang.faClip.helper.ResourceHelper;
+import com.wenkrang.faClip.module.FaModule;
 import com.wenkrang.faClip.module.faData.FaInventoryData;
 import com.wenkrang.faClip.module.faInterface.FaInterfaceInstance;
 import com.wenkrang.faClip.module.faItem.FaItemInstance;
@@ -18,7 +19,7 @@ import java.util.Map;
 
 import static com.wenkrang.faClip.module.faWindow.helper.WinDataHelper.getDesignArray;
 
-public class FaWindowInstance {
+public class FaWindowInstance implements FaModule {
     private final Plugin plugin;
 
     private final FaItemInstance faItemInstance;
@@ -31,6 +32,8 @@ public class FaWindowInstance {
 
     private final ResourceHelper resourceHelper;
 
+    private Status status = Status.STOPPED;
+
     public FaWindowInstance(Plugin p,FaItemInstance f) {
         plugin = p;
         faItemInstance = f;
@@ -39,6 +42,32 @@ public class FaWindowInstance {
         resourceHelper = new ResourceHelper(plugin.getClass());
 
         registerEvents();
+    }
+
+    @Override
+    public void auto() {
+        status = Status.STARTING;
+
+        loadAll();
+        autoRegister();
+
+        status = Status.READY;
+    }
+
+    @Override
+    public void close() {
+        inventories.clear();
+        status = Status.STOPPED;
+    }
+
+    @Override
+    public Status status() {
+        return status;
+    }
+
+    @Override
+    public String getName() {
+        return "FaWindow";
     }
 
     public void autoRegister() {

@@ -1,6 +1,7 @@
 package com.wenkrang.faClip.module.faItem;
 
 import com.wenkrang.faClip.helper.ResourceHelper;
+import com.wenkrang.faClip.module.FaModule;
 import com.wenkrang.faClip.module.faData.FaData;
 import com.wenkrang.faClip.module.faInterface.FaInterfaceInstance;
 import com.wenkrang.faClip.module.faItem.interpreter.FaItemInterpreter;
@@ -24,7 +25,7 @@ import java.util.Map;
  * FaItem 实例管理器，负责加载、存储和检索自定义 FaItem 对象
  * 内部通过命名空间键值对维护所有已注册的 FaItem
  */
-public class FaItemInstance {
+public class FaItemInstance implements FaModule {
     // 以命名空间为键、FaItem 为值的注册表
     private final Map<String,FaItem> faItems;
 
@@ -33,6 +34,8 @@ public class FaItemInstance {
     private final FaItemInterpreter faItemInterpreter;
 
     private final FaInterfaceInstance faInterfaceInstance;
+
+    private Status status = Status.STOPPED;
     
     /**
      * 构造一个 FaItemInstance 实例
@@ -47,6 +50,32 @@ public class FaItemInstance {
         Bukkit.getPluginManager().registerEvents(new FaItemClickE(plugin, this), plugin);
         Bukkit.getPluginManager().registerEvents(new FaItemInvClickE(plugin, this), plugin);
         Bukkit.getPluginManager().registerEvents(new FaItemIsolateE(this), plugin);
+    }
+
+    @Override
+    public void auto() {
+        status = Status.STARTING;
+
+        loadAll();
+        autoRegister();
+
+        status = Status.READY;
+    }
+
+    @Override
+    public void close() {
+        faItems.clear();
+        status = Status.STOPPED;
+    }
+
+    @Override
+    public Status status() {
+        return status;
+    }
+
+    @Override
+    public String getName() {
+        return "FaItem";
     }
 
     public void autoRegister() {

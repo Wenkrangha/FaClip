@@ -12,6 +12,12 @@ import static com.wenkrang.faClip.module.faMessage.Fm.warning;
  * 提供静态和实例方法来获取本地化字符串，并支持格式化功能
  */
 public class I18nHelper {
+    private static Locale defaultLocale;
+
+    public static void setDefaultLocale(Locale locale) {
+        defaultLocale = locale;
+    }
+
     //设置语言
     private final Locale locale;
 
@@ -22,7 +28,7 @@ public class I18nHelper {
      * 初始化ResourceBundle以加载language资源文件
      */
     public I18nHelper() {
-        locale = Locale.getDefault();
+        locale = defaultLocale;
         resourceBundle = ResourceBundle.getBundle("language", locale, this.getClass().getClassLoader());
     }
 

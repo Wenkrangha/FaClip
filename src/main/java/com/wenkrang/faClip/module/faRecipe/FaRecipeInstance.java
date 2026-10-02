@@ -3,6 +3,7 @@ package com.wenkrang.faClip.module.faRecipe;
 import com.wenkrang.faClip.helper.ResourceHelper;
 import com.wenkrang.faClip.helper.VersionHelper;
 import com.wenkrang.faClip.manager.RecipeManager;
+import com.wenkrang.faClip.module.FaModule;
 import com.wenkrang.faClip.module.faInterface.FaInterfaceInstance;
 import com.wenkrang.faClip.module.faInterface.FaIntfInterpreter;
 import com.wenkrang.faClip.module.faItem.FaItemInstance;
@@ -21,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FaRecipeInstance {
+public class FaRecipeInstance implements FaModule {
     private final Map<String,FaRecipe> recipes = new HashMap<>();
 
     private final Plugin plugin;
@@ -35,6 +36,8 @@ public class FaRecipeInstance {
     private final ResourceHelper resourceHelper;
 
     private final FaInterfaceInstance faInterfaceInstance;
+
+    private Status status = Status.STOPPED;
 
     public void addRecipe(NamespacedKey key, Recipe recipe) {
         recipeManager.register(recipe, key);
@@ -54,7 +57,7 @@ public class FaRecipeInstance {
         return recipes;
     }
 
-    public FaRecipeInstance(Plugin plugin, FaItemInstance faItemInstance, FaIntfInterpreter faIntfInterpreter) {
+    public FaRecipeInstance(Plugin plugin, FaItemInstance faItemInstance) {
         this.plugin = plugin;
         this.faItemInstance = faItemInstance;
         this.faInterfaceInstance = new FaInterfaceInstance(plugin);
@@ -130,8 +133,30 @@ public class FaRecipeInstance {
         return faInterfaceInstance;
     }
 
+    @Override
+    public void auto() {
+        status = Status.STARTING;
+
+        loadAll();
+        autoRegister();
+
+        status = Status.READY;
+    }
+
+    @Override
     public void close() {
         recipeManager.unregisterAll();
         recipes.clear();
+        status = Status.STOPPED;
+    }
+
+    @Override
+    public Status status() {
+        return status;
+    }
+
+    @Override
+    public String getName() {
+        return "FaRecipe";
     }
 }

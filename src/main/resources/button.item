@@ -1,6 +1,0 @@
-id: button
-type: GLASS
-name: 按钮
-lore:
-   - 按钮
-ref: sub

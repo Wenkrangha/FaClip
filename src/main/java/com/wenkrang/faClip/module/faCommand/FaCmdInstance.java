@@ -86,14 +86,13 @@ public class FaCmdInstance implements FaModule {
 
         faInterfaceInstance = new FaInterfaceInstance(plugin);
 
-        FaCmdInstance faCmdInstance = new FaCmdInstance(plugin);
-        faCmdInstance.faCmdInterpreter = new FaCmdInterpreter(faCmdInstance, plugin);
-        faCmdInstance.faCmdInterpreter.addAnnotationHandlers(new CmdNodeHandler());
-        faCmdInstance.faCmdInterpreter.addAnnotationHandlers(new CmdPermissionHandler());
-        faCmdInstance.faCmdInterpreter.addAnnotationHandlers(new RequireOPHandler());
-        faCmdInstance.faCmdInterpreter.addAnnotationHandlers(new CmdHelpHandler());
-        faCmdInstance.faCmdInterpreter.addAnnotationHandlers(new CmdOnlyForHelpHandler());
-        faCmdInstance.faCmdInterpreter.addAnnotationHandlers(new CmdPlayerHandler());
+        faCmdInterpreter = new FaCmdInterpreter(this, plugin);
+        faCmdInterpreter.addAnnotationHandlers(new CmdNodeHandler());
+        faCmdInterpreter.addAnnotationHandlers(new CmdPermissionHandler());
+        faCmdInterpreter.addAnnotationHandlers(new RequireOPHandler());
+        faCmdInterpreter.addAnnotationHandlers(new CmdHelpHandler());
+        faCmdInterpreter.addAnnotationHandlers(new CmdOnlyForHelpHandler());
+        faCmdInterpreter.addAnnotationHandlers(new CmdPlayerHandler());
     }
 
     @Override
