@@ -151,10 +151,15 @@ site:
                 directory: ./docs/modules/faResource
 
         # ── API Reference ──
-        - type: space
-          key: space-api
+        - type: section
+          key: section-api
           title: API Reference
           path: api
-          default: false
-          content:
-            directory: ./docs/api
+          children:
+            - type: space
+              key: space-api
+              title: API Reference
+              path: api
+              default: true
+              content:
+                directory: ./docs/api
