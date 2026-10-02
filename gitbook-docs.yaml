@@ -111,3 +111,9 @@ site:
           default: true
           content:
             directory: ./docs/api
+    - type: section-group
+      key: section-group-1
+      title: 模块
+      icon: grid-4
+      draft: true
+      children: []
