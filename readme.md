@@ -3,6 +3,8 @@
 [![](https://www.jitpack.io/v/Wenkrangha/FaClip.svg)](https://www.jitpack.io/#Wenkrangha/FaClip)
 [![License](https://img.shields.io/github/license/Wenkrangha/FaClip)](LICENSE)
 
+> **警告：本仓库仍处于测试开发状态，不建议用于强稳定需求的生产环境**
+
 > **简化流程 · 提升效率 · 回归创作**
 
 FaClip 是一个面向 Minecraft 插件开发者的 **Java 基础设施库**，集成了声明式命令、自定义物品、GUI 窗口、合成配方、数据管理、控制反转（IoC）等核心系统。
