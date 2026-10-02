@@ -1,4 +1,0 @@
-id: moveable
-name: 可以动的东西
-type: APPLE
-moveable: true
