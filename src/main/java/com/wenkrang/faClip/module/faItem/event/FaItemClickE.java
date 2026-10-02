@@ -29,7 +29,7 @@ public class FaItemClickE implements Listener {
     public void onClick(PlayerInteractEvent event) throws InvocationTargetException, IllegalAccessException {
         ItemStack item = event.getItem();
 
-        if (item != null && event.getHand() == EquipmentSlot.HAND) {
+        if (item != null && event.getHand() == EquipmentSlot.HAND && item.getItemMeta() != null) {
             TagMgr tagMgr = new TagMgr(plugin, item);
 
             if (tagMgr.has("event.item_click")) {
