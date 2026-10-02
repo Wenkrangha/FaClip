@@ -87,21 +87,21 @@ site:
           default: true
           content:
             directory: ./docs/modules/faInterface
-    - type: section
-      key: section-faResource
-      title: faResource
-      path: faresource
-      children:
-        - type: space
-          key: space-faResource
-          title: faResource
-          path: faresource
-          default: true
-          content:
-            directory: ./docs/modules/faResource
     - type: section-group
       key: section-group-1
       title: 模块
       icon: grid-4
       draft: true
-      children: []
+      children:
+        - type: section
+          key: section-faResource
+          title: faResource
+          path: faresource
+          children:
+            - type: space
+              key: space-faResource
+              title: faResource
+              path: faresource
+              default: true
+              content:
+                directory: ./docs/modules/faResource
