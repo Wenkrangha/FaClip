@@ -51,13 +51,15 @@ public class FaIntfInterpreter {
             faIntf.paramConvertors = new SimpleParam[method.getParameterCount()];
 
             for (int i = 0;i < parameterTypes.length;i++) {
-                Type parameterType = parameterTypes[i];
+                Class<?> parameterType = parameterTypes[i];
 
                 SimpleParam convertor = faParam.getConvertor(parameterType);
 
                 // 检查是否支持
                 if (convertor == null) {
-                    throw new FaIntfException("FaInterface.Error.Interpreter.UnsupportedType", parameterType.getTypeName(), node);
+                    if (!(FaIntfContext.class.isAssignableFrom(parameterType))) {
+                        throw new FaIntfException("FaInterface.Error.Interpreter.UnsupportedType", parameterType.getTypeName(), node);
+                    }
                 }
 
                 faIntf.paramConvertors[i] = convertor;
