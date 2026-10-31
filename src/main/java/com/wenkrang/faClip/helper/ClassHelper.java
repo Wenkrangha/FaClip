@@ -32,6 +32,7 @@ public class ClassHelper {
                 .map(i -> i.replace("/", ".")
                         .replace(".class", ""))
                 .filter(i -> !i.contains("module-info"))
+                .filter(i -> !i.contains("META-INF"))
                 .map(i -> {
                     try {
                         return Class.forName(i, true, classLoader);
