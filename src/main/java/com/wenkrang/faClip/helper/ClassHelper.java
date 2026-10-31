@@ -31,6 +31,7 @@ public class ClassHelper {
                 .stream()
                 .map(i -> i.replace("/", ".")
                         .replace(".class", ""))
+                .filter(i -> !i.contains("module-info"))
                 .map(i -> {
                     try {
                         return Class.forName(i, true, classLoader);
