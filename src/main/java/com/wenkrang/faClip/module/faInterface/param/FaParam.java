@@ -1,8 +1,6 @@
 package com.wenkrang.faClip.module.faInterface.param;
 
-import com.wenkrang.faClip.module.faInterface.param.bukkitParam.EffectParam;
-import com.wenkrang.faClip.module.faInterface.param.bukkitParam.MaterialParam;
-import com.wenkrang.faClip.module.faInterface.param.bukkitParam.PlayerParam;
+import com.wenkrang.faClip.module.faInterface.param.bukkitParam.*;
 import com.wenkrang.faClip.module.faInterface.param.javaParam.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -29,6 +27,8 @@ public class FaParam {
         simpleParams.add(new EffectParam());
         simpleParams.add(new MaterialParam());
         simpleParams.add(new PlayerParam());
+        simpleParams.add(new GameModeParam());
+        simpleParams.add(new WorldParam());
     }
 
     public List<SimpleParam> getSimpleParams() {
