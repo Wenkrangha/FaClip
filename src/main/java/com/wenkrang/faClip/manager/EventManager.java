@@ -26,13 +26,15 @@ public class EventManager {
      * 自动注册监听器
      * @return 注册成功的监听器 ID
      */
-    public List<String> autoRegister() {
+    public List<String> autoRegister(String filter) {
         ArrayList<String> result = new ArrayList<>();
 
         // 扫描Class
         ArrayList<Class<?>> classes = ClassHelper.getClasses(plugin.getClass());
 
         for (Class<?> clazz : classes) {
+            if (!clazz.getTypeName().contains(filter)) continue;
+
             // 检查类是否为监听器
             if (Listener.class.isAssignableFrom(clazz)
                     && !clazz.isInterface()
